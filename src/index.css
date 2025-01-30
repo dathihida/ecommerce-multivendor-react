@@ -12,6 +12,13 @@ code {
     monospace;
 }
 
+.logo{
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+  color: aqua
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
