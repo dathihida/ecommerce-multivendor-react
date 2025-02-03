@@ -1,15 +1,19 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button } from '@mui/material';
+import { Button, ThemeProvider } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Navbar from './admin/components/Navbar';
+import customerTheme from './Theme/customerTheme';
 
 function App() {
   return (
-    <div className='p-20'>
-      <Navbar/>
-    </div>
+      <ThemeProvider theme={customerTheme}>
+        
+        <div>
+          <Navbar/>
+        </div>
+      </ThemeProvider>
   );
 }
 

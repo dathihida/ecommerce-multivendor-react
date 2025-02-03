@@ -11,17 +11,29 @@ const Navbar = () => {
   return (
     <>
         <Box>
-          <div className='flex items-center justify-between px-5 lg:px-20 h-[70px] border-b border-[#f0f0f0]'>
-            
+          <div className='flex items-center justify-between px-5 lg:px-20 h-[70px] border-b'>
+            <div className='flex items-center gap-9'>
               <div className='flex items-center gap-2'>
                 <IconButton>
                   <MenuIcon />
                 </IconButton>
-                <h1 className='logo cursor-pointer text-lg md:text-2xl text-[#00927]'>
+                <h1 className='logo cursor-pointer text-lg md:text-2xl text-primary-colors'>
                   DatShop
                 </h1>
               </div>
-              <div className=''>
+              <ul className='flex items-center font-medium text-gray-700 gap-4 lg:gap-8'>
+                {["Men", "Women", "Kids", "Home & Furniture", "Electronics"]
+                  .map((item) => 
+                  <li className='mainCategory hover:text-primary-colors hover:border-b-2 h-[70px]
+                  px-4 border-primary-colors flex items-center'>
+                    {item}
+                  </li> 
+                )}
+              </ul>
+            </div>
+              
+
+              <div className='flex items-center gap-1 lg:gap-6'>
                 <IconButton>
                   <SearchIcon />
                 </IconButton> 
