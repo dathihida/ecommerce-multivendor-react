@@ -5,6 +5,7 @@ import { Button, ThemeProvider } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Navbar from './admin/components/Navbar';
 import customerTheme from './Theme/customerTheme';
+import Home from './admin/pages/Home/Home';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         
         <div>
           <Navbar/>
+          <Home/>
         </div>
       </ThemeProvider>
   );
