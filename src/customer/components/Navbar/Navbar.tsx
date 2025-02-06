@@ -4,13 +4,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { AddShoppingCart, FavoriteBorder, Storefront } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
+import CategorySheet from './CategorySheet';
 
 const Navbar = () => {
   const themeIs = useTheme();
   const isLarge = useMediaQuery(themeIs.breakpoints.up("lg"));
   return (
     <>
-        <Box>
+        <Box className='sticky top-0 left-0 right-0 bg-white' sx={{zIndex: 2}}>
           <div className='flex items-center justify-between px-5 lg:px-20 h-[70px] border-b'>
             <div className='flex items-center gap-9'>
               <div className='flex items-center gap-2'>
@@ -59,6 +60,9 @@ const Navbar = () => {
                   </Button>}
               </div>
             
+          </div>
+          <div className='categorySheet absolute top-[4.41rem] left-20 right-20 border'>
+            <CategorySheet/>
           </div>
         </Box>
     </>
