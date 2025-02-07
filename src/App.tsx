@@ -6,6 +6,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Navbar from './customer/components/Navbar/Navbar';
 import customerTheme from './Theme/customerTheme';
 import Home from './customer/pages/Home/Home';
+import Product from './customer/pages/Product/Product';
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         
         <div>
           <Navbar/>
-          <Home/>
+          {/* <Home/> */}
+          <Product/>
         </div>
       </ThemeProvider>
   );

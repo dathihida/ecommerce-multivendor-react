@@ -5,6 +5,7 @@ import Deal from './Deal/Deal'
 import ShopByCategory from './ShopByCategory/ShopByCategory'
 import { Button } from '@mui/material'
 import { Storefront, StoreSharp } from '@mui/icons-material'
+import Product from '../Product/Product'
 
 const Home = () => {
   return (
@@ -38,8 +39,6 @@ const Home = () => {
                   </Button>
                 </div>
               </div>
-              
-              
             </section>
         </div>
     </>
