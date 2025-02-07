@@ -1,65 +1,110 @@
 export const menLevelThree = [
     {
-        "name": "AoThun",
-        "categoryId": "Men_AoThun",
-        "parentCategoryName": "AoThun",
-        "parentCategoryId": "Men_AoThun"
+      "name": "Áo Thun Tay Ngắn",
+      "categoryId": "Men_AoThun_TayNgan",
+      "parentCategoryName": "Áo Thun",
+      "parentCategoryId": "Men_AoThun"
     },
     {
-        "name": "AoSieuNhan",
-        "categoryId": "Men_AoThun",
-        "parentCategoryName": "AoSieuNhan",
-        "parentCategoryId": "Men_AoThun"
+      "name": "Áo Thun Tay Dài",
+      "categoryId": "Men_AoThun_TayDai",
+      "parentCategoryName": "Áo Thun",
+      "parentCategoryId": "Men_AoThun"
     },
     {
-        "name": "AoInHinh",
-        "categoryId": "Men_AoThun",
-        "parentCategoryName": "AoInHinh",
-        "parentCategoryId": "Men_AoThun"
+      "name": "Áo Thun Polo",
+      "categoryId": "Men_AoThun_Polo",
+      "parentCategoryName": "Áo Thun",
+      "parentCategoryId": "Men_AoThun"
     },
     {
-        "name": "AoThunTheu",
-        "categoryId": "Men_AoThun",
-        "parentCategoryName": "AoThunTheu",
-        "parentCategoryId": "Men_AoThun"
+      "name": "Áo Thun Không Cổ",
+      "categoryId": "Men_AoThun_KhongCo",
+      "parentCategoryName": "Áo Thun",
+      "parentCategoryId": "Men_AoThun"
     },
     {
-        "name": "AoTheThao",
-        "categoryId": "Men_AoTheThao",
-        "parentCategoryName": "AoTheThao",
-        "parentCategoryId": "Men_AoTheThao"
+      "name": "Áo Sơ Mi Ngắn Tay",
+      "categoryId": "Men_AoSoMi_NganTay",
+      "parentCategoryName": "Áo Sơ Mi",
+      "parentCategoryId": "Men_AoSoMi"
     },
     {
-        "name": "AoYaga",
-        "categoryId": "Men_AoTheThao",
-        "parentCategoryName": "AoTheThao",
-        "parentCategoryId": "Men_AoTheThao"
+      "name": "Áo Sơ Mi Dài Tay",
+      "categoryId": "Men_AoSoMi_DaiTay",
+      "parentCategoryName": "Áo Sơ Mi",
+      "parentCategoryId": "Men_AoSoMi"
     },
     {
-        "name": "AoBoi",
-        "categoryId": "Men_AoTheThao",
-        "parentCategoryName": "AoTheThao",
-        "parentCategoryId": "Men_AoTheThao"
+      "name": "Áo Sơ Mi Họa Tiết",
+      "categoryId": "Men_AoSoMi_HoaTiet",
+      "parentCategoryName": "Áo Sơ Mi",
+      "parentCategoryId": "Men_AoSoMi"
     },
     {
-        "name": "QuanJean",
-        "categoryId": "Men_QuanJean",
-        "parentCategoryName": "QuanJean",
-        "parentCategoryId": "Men_QuanJean"
-    },{
-        "name": "QuanKaki",
-        "categoryId": "Men_QuanKaki",
-        "parentCategoryName": "QuanKaki",
-        "parentCategoryId": "Men_QuanKaki"
-    },{
-        "name": "AoSoMi",
-        "categoryId": "Men_AoSoMi",
-        "parentCategoryName": "AoSoMi",
-        "parentCategoryId": "Men_AoSoMi"
-    },{
-        "name": "AoVest",
-        "categoryId": "Men_AoVest",
-        "parentCategoryName": "AoVest",
-        "parentCategoryId": "Men_AoVest"
+      "name": "Quần Jean Skinny",
+      "categoryId": "Men_QuanJean_Skinny",
+      "parentCategoryName": "Quần Jean",
+      "parentCategoryId": "Men_QuanJean"
+    },
+    {
+      "name": "Quần Jean Slim Fit",
+      "categoryId": "Men_QuanJean_SlimFit",
+      "parentCategoryName": "Quần Jean",
+      "parentCategoryId": "Men_QuanJean"
+    },
+    {
+      "name": "Quần Jean Rộng",
+      "categoryId": "Men_QuanJean_Rong",
+      "parentCategoryName": "Quần Jean",
+      "parentCategoryId": "Men_QuanJean"
+    },
+    {
+      "name": "Quần Tây Công Sở",
+      "categoryId": "Men_QuanTay_CongSo",
+      "parentCategoryName": "Quần Tây",
+      "parentCategoryId": "Men_QuanTay"
+    },
+    {
+      "name": "Quần Tây Ống Suông",
+      "categoryId": "Men_QuanTay_OngSuong",
+      "parentCategoryName": "Quần Tây",
+      "parentCategoryId": "Men_QuanTay"
+    },
+    {
+      "name": "Giày Sneaker",
+      "categoryId": "Men_Giay_Sneaker",
+      "parentCategoryName": "Giày",
+      "parentCategoryId": "Men_Giay"
+    },
+    {
+      "name": "Giày Tây Da",
+      "categoryId": "Men_Giay_TayDa",
+      "parentCategoryName": "Giày",
+      "parentCategoryId": "Men_Giay"
+    },
+    {
+      "name": "Dép Lê",
+      "categoryId": "Men_Giay_DepLe",
+      "parentCategoryName": "Giày",
+      "parentCategoryId": "Men_Giay"
+    },
+    {
+      "name": "Thắt Lưng Da",
+      "categoryId": "Men_PhuKien_ThatLung",
+      "parentCategoryName": "Phụ Kiện",
+      "parentCategoryId": "Men_PhuKien"
+    },
+    {
+      "name": "Ví Da",
+      "categoryId": "Men_PhuKien_ViDa",
+      "parentCategoryName": "Phụ Kiện",
+      "parentCategoryId": "Men_PhuKien"
+    },
+    {
+      "name": "Mũ Lưỡi Trai",
+      "categoryId": "Men_PhuKien_MuLuoiTrai",
+      "parentCategoryName": "Phụ Kiện",
+      "parentCategoryId": "Men_PhuKien"
     }
-]
+  ]  
