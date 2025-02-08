@@ -58,8 +58,9 @@ const Product = () => {
                 </div>
                 <Divider/>
 
-                <section className='products_section'>
-                    <ProductCard/>
+                <section className='products_section flex flex-wrap gap-5 px-9'>
+                    {[1,1,1,1,1,,1,1,1,1,1].map((item) => <ProductCard/>)}
+                    
                 </section>
             </div>
             
