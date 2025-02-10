@@ -67,7 +67,7 @@ const Product = () => {
                 <section className='products_section flex flex-wrap gap-5 px-9'>
                     {[1,1,1,1,1,,1,1,1,1,1].map((item) => <ProductCard/>)}
                 </section>
-
+                        
                 <Pagination count={10} page={page} 
                     onChange={(e, value) => handlePageChange(value)} 
                     className='flex justify-center py-5'/>
