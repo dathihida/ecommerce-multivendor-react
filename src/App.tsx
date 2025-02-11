@@ -8,7 +8,7 @@ import customerTheme from './Theme/customerTheme';
 import Home from './customer/pages/Home/Home';
 import Product from './customer/pages/Product/Product';
 import { BrowserRouter } from 'react-router-dom';
-import PageDetail from './customer/pages/PageDetail/PageDetail';
+import PageDetail from './customer/pages/PageDetail/ProductDetail';
 
 function App() {
   return (

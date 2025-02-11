@@ -3,7 +3,9 @@ import StartIcon from '@mui/icons-material/Star'
 import { teal } from '@mui/material/colors'
 import { Button, Divider } from '@mui/material'
 import { Add, AddShoppingCart, FavoriteBorder, LocalShipping, Remove, Shield, Wallet, WorkspacePremium } from '@mui/icons-material'
-const PageDetail = () => {
+import SimilarProduct from './SimilarProduct'
+import ReviewCard from '../Review/ReviewCard'
+const ProductDetail = () => {
     const [quantity, setQuantity] = useState(1)
   return (  
     <div className='px-5 lg:px-20 pt-10'>
@@ -95,7 +97,7 @@ const PageDetail = () => {
                     </Button>
                 </div>
                 <div className='mt-5'>
-                The SPMA’s formal academic offering includes an undergraduate degree programme specialising in 
+                <p>The SPMA’s formal academic offering includes an undergraduate degree programme specialising in 
                 Public Administration and International Relations. 
                 This is a bachelors degree that provides a solid foundation for postgraduate studies in 
                 Public Management and Administration. Postgraduate programmes include a 
@@ -104,13 +106,24 @@ const PageDetail = () => {
                 specialising in Public Administration as well as the PhD programmes specialising 
                 in Public Administration and specialising in Public Policy . 
                 The high esteem in which the SPMA’s programmes are held has contributed to establishing it as a 
-                leading school in public sector education. 
+                leading school in public sector education. </p>
+                </div>
+                <div className='mt-12 space-y-5'>
+                    <ReviewCard/>
+                    <Divider/>  
                 </div>
 
             </section>
         </div>  
+
+        <div className='mt-20'>
+            <h1>Similar Product</h1>
+            <div className='pt-5'>
+                <SimilarProduct/>
+            </div>
+        </div>
     </div>
   )
 }
 
-export default PageDetail
+export default ProductDetail
