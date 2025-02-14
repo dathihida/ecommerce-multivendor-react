@@ -9,6 +9,7 @@ import Home from './customer/pages/Home/Home';
 import Product from './customer/pages/Product/Product';
 import { BrowserRouter } from 'react-router-dom';
 import PageDetail from './customer/pages/PageDetail/ProductDetail';
+import Review from './customer/pages/Review/Review';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
           <Navbar/>
           {/* <Home/> */}
             {/* <Product/> */}
-          <PageDetail/>
+          {/* <PageDetail/> */}
+          <Review/>
         </div>
       </ThemeProvider>
   );
