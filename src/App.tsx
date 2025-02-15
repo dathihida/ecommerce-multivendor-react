@@ -11,6 +11,7 @@ import { BrowserRouter } from 'react-router-dom';
 import PageDetail from './customer/pages/PageDetail/ProductDetail';
 import Review from './customer/pages/Review/Review';
 import Cart from './customer/pages/Cart/Cart';
+import Checkout from './customer/pages/Checkout/Checkout';
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
             {/* <Product/> */}
           {/* <PageDetail/> */}
           {/* <Review/> */}
-          <Cart/>
+          {/* <Cart/> */}
+          <Checkout/>
         </div>
       </ThemeProvider>
   );
