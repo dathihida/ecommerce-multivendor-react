@@ -10,6 +10,7 @@ import Product from './customer/pages/Product/Product';
 import { BrowserRouter } from 'react-router-dom';
 import PageDetail from './customer/pages/PageDetail/ProductDetail';
 import Review from './customer/pages/Review/Review';
+import Cart from './customer/pages/Cart/Cart';
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
           {/* <Home/> */}
             {/* <Product/> */}
           {/* <PageDetail/> */}
-          <Review/>
+          {/* <Review/> */}
+          <Cart/>
         </div>
       </ThemeProvider>
   );
