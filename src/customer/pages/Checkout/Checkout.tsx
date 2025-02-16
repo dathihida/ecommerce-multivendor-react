@@ -16,21 +16,34 @@ const style = {
     };
 const paymentList = [
     {
+        value:"RAZORPAY",
+        image: "https://www.ecommerce-nation.com/wp-content/uploads/2019/02/razorpay.webp",
+        label: "razorpay",
+    },
+    {
+        value:"STRIPE",
+        image: "https://vikwp.com/images/plugins/stripe.png",
+        label: "stripe",
+    },
+    {
         value:"MOMO",
         image: "https://developers.momo.vn/v3/vi/img/logo.svg",
-        label: "",
+        label: "momo",
     },
     {
         value:"VNPay",
         image: "https://stcd02206177151.cloud.edgevnpay.vn/assets/images/logo-icon/logo-primary.svg",
-        label: "",
+        label: "vnpay",
     }
 ];
 const Checkout = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false); 
-    
+    const [paymentGatway, setPaymentGatway] = useState("MOMO");
+    const handlePaymentChange = (event:any) =>{
+        setPaymentGatway(event.target.value)
+    }
 
   return (
     <>
@@ -64,6 +77,8 @@ const Checkout = () => {
                             className='flex flex-wrap justify-center gap-4'
                             aria-labelledby="demo-controlled-radio-buttons-group"
                             name="controlled-radio-buttons-group"
+                            onChange={handlePaymentChange}
+                            value={paymentGatway}
                         >
                             {paymentList.map((item) => (
                                 <FormControlLabel 
@@ -72,13 +87,19 @@ const Checkout = () => {
                                     value={item.value} 
                                     control={<Radio />} 
                                     label={
-                                        <img 
-                                            className={`${item.value === "momo" ? "w-10" : "w-10"}`}  
-                                            src={item.image} alt={item.label} 
-                                        />
+                                        <img className="w-10" src={item.image} alt={item.label} />
                                     } 
                                 />
-                            ))}
+                            ))} 
+                            {/* {paymentList.map((item, index) => (
+                                <FormControlLabel 
+                                    key={item.value} 
+                                    className='border rounded-md flex justify-center items-center'
+                                    value={item.value} 
+                                    control={<Radio />} 
+                                    label={<img className="w-10" src={item.image} alt={item.label} />} 
+                                />
+                            ))} */}
                         </RadioGroup>
                     </div>
                     <div className='border rounded-md'>
@@ -103,8 +124,7 @@ const Checkout = () => {
                 <AddressForm/>
             </Box>
         </Modal>
-    </>
-    
+    </> 
   )
 }
 
