@@ -1,4 +1,5 @@
 import React from 'react'
+import ProfileFieldCard from '../../../components/ProfileFieldCard'
 
 const UserDetails = () => {
   return (
@@ -8,8 +9,11 @@ const UserDetails = () => {
                 <h1 className='text-2xl font-bold text-gray-600'>Persional Detail</h1>
 
             </div>
-            <div className='space-y-5'>
-                
+            <div className=''>
+                <ProfileFieldCard keys={'Name'} value={'DAT'}/>
+                <ProfileFieldCard keys={'Mobile'} value={'0368746003'}/>
+                <ProfileFieldCard keys={'Email'} value={'tiendat060709@gmail.com'}/>
+                <ProfileFieldCard keys={'Address'} value={'DONGNAI'}/>
             </div>
         </div>
 
