@@ -20,7 +20,7 @@ function App() {
       <ThemeProvider theme={customerTheme}>
         
         <div>
-          {/* <Navbar/> */}
+          <Navbar/>
           {/* <Home/> */}
           {/* <Product/> */}
           {/* <PageDetail/> */}
@@ -28,6 +28,15 @@ function App() {
           {/* <Cart/> */}
           {/* <Checkout/> */}
           {/* <Account/> */}
+          <Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/products/:category' element={<Product/>}/>
+            <Route path='/reviews/:productId' element={<Review/>}/>
+            <Route path='/product-details/:categoryId/:name/:productId' element={<ProductDetail/>}/>
+            <Route path='/cart/' element={<Cart/>}/>
+            <Route path='/checkout' element={<Checkout/>}/>
+            <Route path='/account/*' element={<Account/>}/>
+          </Routes>
         </div>
       </ThemeProvider>
   );

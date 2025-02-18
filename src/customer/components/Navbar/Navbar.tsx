@@ -6,12 +6,14 @@ import { AddShoppingCart, FavoriteBorder, Storefront } from '@mui/icons-material
 import { useTheme } from '@mui/material/styles';
 import CategorySheet from './CategorySheet';
 import { mainCategory } from '../../../data/category/mainCategory';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const themeIs = useTheme();
   const isLarge = useMediaQuery(themeIs.breakpoints.up("lg"));
   const [selectCategory, setSelectCategory] = useState('men');
   const [showCategorySheet, setShowCategorySheet] = useState(false);
+  const navigate = useNavigate();
   return (
     <>
         <Box className='sticky top-0 left-0 right-0 bg-white' sx={{zIndex: 2}}>
@@ -21,7 +23,7 @@ const Navbar = () => {
                 {!isLarge && <IconButton>
                   <MenuIcon />
                 </IconButton>}
-                <h1 className='logo cursor-pointer text-lg md:text-2xl text-primary-colors'>
+                <h1 onClick={()=>navigate("/")} className='logo cursor-pointer text-lg md:text-2xl text-primary-colors'>
                   DatShop
                 </h1>
               </div>
@@ -44,7 +46,7 @@ const Navbar = () => {
                   <SearchIcon />
                 </IconButton> 
                 {true ? 
-                  <Button className='flex items-center gap-2'>
+                  <Button onClick={() =>navigate("/account/orders")} className='flex items-center gap-2'>
                     <Avatar sx={{ width: 29, height: 29 }}
                       src='https://cdn-icons-png.flaticon.com/512/149/149071.png' />
                     <h1 className='font-semibold hidden lg:block'>
@@ -55,7 +57,7 @@ const Navbar = () => {
                   <IconButton>
                     <FavoriteBorder sx={{fontSize:29}}/>
                   </IconButton>   
-                  <IconButton>
+                  <IconButton onClick={()=>navigate("/cart")}>
                     <AddShoppingCart className='text-gray-700' sx={{fontSize:29}}/>
                   </IconButton>  
 
