@@ -14,6 +14,7 @@ import Cart from './customer/pages/Cart/Cart';
 import Checkout from './customer/pages/Checkout/Checkout';
 import Account from './customer/pages/Account/Account';
 import ProductDetail from './customer/pages/PageDetail/ProductDetail';
+import BecomeSeller from './customer/pages/BecomeSeller/BecomeSeller';
 
 function App() {
   return (
@@ -36,6 +37,10 @@ function App() {
             <Route path='/cart/' element={<Cart/>}/>
             <Route path='/checkout' element={<Checkout/>}/>
             <Route path='/account/*' element={<Account/>}/>
+            {/* becomeseller */}
+            <Route path='/become-seller' element={<BecomeSeller/>}/>
+
+            <Route path='/seller/*' element={<Account/>}/>
           </Routes>
         </div>
       </ThemeProvider>
