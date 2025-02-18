@@ -4,7 +4,7 @@ const SimilarProductCard = () => {
   return (
     <div className='group px-4 relative'>
         <div className='card'>
-          <img className='card-media object-top' 
+          <img className='card-media object-top w-auto' 
             src="https://dy9ihb9itgy3g.cloudfront.net/products/11865/y3180/y3180_ivory___2.webp" alt=""/>
         </div>
 
