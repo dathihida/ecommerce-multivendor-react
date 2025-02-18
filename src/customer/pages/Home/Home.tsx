@@ -6,8 +6,10 @@ import ShopByCategory from './ShopByCategory/ShopByCategory'
 import { Button } from '@mui/material'
 import { Storefront, StoreSharp } from '@mui/icons-material'
 import Product from '../Product/Product'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+  const navigator = useNavigate()
   return (
     <>
         <div className='space-y-5 lg:space-y-10 relative pb-20'>
@@ -34,7 +36,8 @@ const Home = () => {
                 <h1 className='text-2xl lg:text-4xl font-bold text-white pb-5'>Sell your product</h1>
                 <p className='text-lg md:text-2xl'>With<span className='logo'> DatShop</span></p>
                 <div className='pt-6 flex justify-center'>
-                  <Button startIcon={<Storefront/>} variant='contained' size='large'>
+                  <Button onClick={()=>navigator("/become-seller")} 
+                    startIcon={<Storefront/>} variant='contained' size='large'>
                     Become Seller
                   </Button>
                 </div>
