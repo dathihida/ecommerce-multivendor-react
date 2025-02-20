@@ -15,6 +15,7 @@ import Checkout from './customer/pages/Checkout/Checkout';
 import Account from './customer/pages/Account/Account';
 import ProductDetail from './customer/pages/PageDetail/ProductDetail';
 import BecomeSeller from './customer/pages/BecomeSeller/BecomeSeller';
+import SellerDashboard from './seller/page/SellerDashboard/SellerDashboard';
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
             {/* becomeseller */}
             <Route path='/become-seller' element={<BecomeSeller/>}/>
 
-            <Route path='/seller/*' element={<Account/>}/>
+            <Route path='/seller/*' element={<SellerDashboard/>}/>
           </Routes>
         </div>
       </ThemeProvider>
