@@ -16,6 +16,7 @@ import Account from './customer/pages/Account/Account';
 import ProductDetail from './customer/pages/PageDetail/ProductDetail';
 import BecomeSeller from './customer/pages/BecomeSeller/BecomeSeller';
 import SellerDashboard from './seller/page/SellerDashboard/SellerDashboard';
+import AdminDashboard from './admin/Pages/Dashboard/AdminDashboard';
 
 function App() {
   return (
@@ -40,8 +41,9 @@ function App() {
             <Route path='/account/*' element={<Account/>}/>
             {/* becomeseller */}
             <Route path='/become-seller' element={<BecomeSeller/>}/>
-
             <Route path='/seller/*' element={<SellerDashboard/>}/>
+            {/* admin */}
+            <Route path='/admin/*' element={<AdminDashboard/>}/>
           </Routes>
         </div>
       </ThemeProvider>
