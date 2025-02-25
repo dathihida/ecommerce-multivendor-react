@@ -13,6 +13,8 @@ import { Alert, Button, CircularProgress, FormControl, FormHelperText, Grid2, Ic
 import { AddPhotoAlternate, Close } from '@mui/icons-material'
 import { colors } from '../../../data/Filter/color'
 import { mainCategory } from '../../../data/category/mainCategory'
+import { useAppDispatch } from '../../../State/Store'
+import { createProduct } from '../../../State/seller/sellerProductSlice'
 
 
 const categoryTwo: {[key:string]: any[]} = {
@@ -35,6 +37,7 @@ const categoryThree: {[key:string]: any[]} = {
 const AddProducts = () => {
   const [uploadImage, setUploadImage] = useState(false);
   const [snackbarOpen, setOpenSnackbar] = useState(false);
+  const dispatch = useAppDispatch()
   const formik = useFormik({
     initialValues:{
       title: "", 
@@ -52,6 +55,7 @@ const AddProducts = () => {
     },
     onSubmit: values =>{
       console.log(values);
+      dispatch(createProduct({request: values, jwt:localStorage.getItem("jwt")}))
     }
   })
 
@@ -59,9 +63,7 @@ const AddProducts = () => {
     const file = event.target.files[0];
     setUploadImage(true);
     const image = await uploadToCloudinary(file);
-    console.log("Uploaded image URL:", image);
     formik.setFieldValue("images", [...formik.values.images, image]);
-    console.log("Updated formik images:", formik.values.images);
     setUploadImage(false);
   }
   
