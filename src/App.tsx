@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Button, ThemeProvider } from '@mui/material';
@@ -7,7 +7,7 @@ import Navbar from './customer/components/Navbar/Navbar';
 import customerTheme from './Theme/customerTheme';
 import Home from './customer/pages/Home/Home';
 import Product from './customer/pages/Product/Product';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import PageDetail from './customer/pages/PageDetail/ProductDetail';
 import Review from './customer/pages/Review/Review';
 import Cart from './customer/pages/Cart/Cart';
@@ -17,20 +17,29 @@ import ProductDetail from './customer/pages/PageDetail/ProductDetail';
 import BecomeSeller from './customer/pages/BecomeSeller/BecomeSeller';
 import SellerDashboard from './seller/page/SellerDashboard/SellerDashboard';
 import AdminDashboard from './admin/Pages/Dashboard/AdminDashboard';
+import { fetchProducts } from './State/fetchProduct';
+import { useAppDispatch, useAppSelector } from './State/Store';
+import { fetchSellerProfile } from './State/seller/sellerSlice';
 
 function App() {
+  const dispatch = useAppDispatch();
+  const {seller} = useAppSelector(store => store)
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    dispatch(fetchSellerProfile(localStorage.getItem("jwt") || ""))
+  },[])
+
+  useEffect(()=>{
+    if(seller.profile){
+      navigate("/seller")
+    }
+  },[seller.profile])
   return (
       <ThemeProvider theme={customerTheme}>
         
         <div>
           <Navbar/>
-          {/* <Home/> */}
-          {/* <Product/> */}
-          {/* <PageDetail/> */}
-          {/* <Review/> */}
-          {/* <Cart/> */}
-          {/* <Checkout/> */}
-          {/* <Account/> */}
           <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path='/products/:category' element={<Product/>}/>
