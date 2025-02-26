@@ -1,4 +1,3 @@
-import { ErrorRounded } from "@mui/icons-material";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../../config/Api";
 import { Product } from "../../types/ProductTypes";

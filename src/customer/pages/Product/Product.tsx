@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from './ProductCard'
 import { Filter, FilterAlt } from '@mui/icons-material'
 import FilterSection from './FilterSection'
-import { useTheme, useMediaQuery, Box, IconButton, FormControl, InputLabel, Select, MenuItem, Divider, Pagination } from '@mui/material'
+import { useTheme, useMediaQuery, Box, IconButton, FormControl, InputLabel, Select, MenuItem, Divider, Pagination, dividerClasses } from '@mui/material'
+import store, { useAppDispatch, useAppSelector } from '../../../State/Store'
+import { fetchAllProducts } from '../../../State/customer/ProductSlice'
+import { useParams, useSearchParams } from 'react-router-dom'
 
 const Product = () => {
   const themeIs = useTheme();
   const isLarge = useMediaQuery(themeIs.breakpoints.up("lg"));
   const [sort, setSort] = useState();
   const [page, setPage] = useState(1);
-  
+  const dispatch = useAppDispatch();
+  const [searchParam, setSearchParam] = useSearchParams();
+  const {category}=useParams();
+  const {product} = useAppSelector((store)=>store)
+
+
+  console.log("Product", product.products);
   const handleSortChange = (event: any) => {
     setSort(event.target.value);
   }
@@ -17,6 +26,11 @@ const Product = () => {
   const handlePageChange = (value: number) => {
     setPage(value);
   };
+
+  useEffect(() =>{
+    const [minPrice, maxPrice] = searchParam.get("price")?.split("-") || [];
+    dispatch(fetchAllProducts({}))
+  }, [category])
   return (
     <div className='-z-10 mt-10'>
         <div>
@@ -65,7 +79,7 @@ const Product = () => {
                 <Divider/>
 
                 <section className='products_section flex flex-wrap gap-5 px-9'>
-                    {[1,1,1,1,1,,1,1,1,1,1].map((item) => <ProductCard/>)}
+                    {product.products.map((item) => <ProductCard item={item}/>)}
                 </section>
                         
                 <Pagination count={10} page={page} 

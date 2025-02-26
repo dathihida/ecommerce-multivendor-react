@@ -60,6 +60,8 @@ export default function ProductTable() {
     dispatch(fetchSellerProducts(localStorage.getItem('jwt')))
   },[])
 
+  console.log("sellerProduct", sellerProduct.products)
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -79,8 +81,10 @@ export default function ProductTable() {
             <StyledTableRow key={item.id}>
               <StyledTableCell component="th" scope="row">
                 <div className='flex gap-1 flex-wrap'>
-                  {item.images.map((image) => <img className='w-20 rounded-md' 
-                    alt='' src={image}/>)}
+                  {item.images.map((image) => 
+                  <img className='w-20 rounded-md' 
+                    alt='' src={image}/>
+                  )}
                 </div>
               </StyledTableCell>
               <StyledTableCell align="right">{item.title}</StyledTableCell>
