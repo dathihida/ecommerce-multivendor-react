@@ -27,7 +27,7 @@ export interface Seller{
     bankDetails: BankDetails;
     sellerName:string;
     email:string;
-    businessDetails:BusinessDetails;
+    bussinessDetails:BusinessDetails;
     password: string;
     accountStatus?:string
 }

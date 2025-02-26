@@ -1,7 +1,7 @@
 export const menLevelThree = [
     {
       "name": "Áo Thun Tay Ngắn",
-      "categoryId": "Men_AoThun_TayNgan",
+      "categoryId": "Men_AoThun_Tay_Ngan",
       "parentCategoryName": "Áo Thun",
       "parentCategoryId": "Men_AoThun"
     },
@@ -76,6 +76,12 @@ export const menLevelThree = [
       "categoryId": "Men_Giay_Sneaker",
       "parentCategoryName": "Giày",
       "parentCategoryId": "Men_Giay"
+    },
+    {
+      "name": "Giày Thể Thao",
+      "categoryId": "Men_GiayTheThao",
+      "parentCategoryName": "Giày",
+      "parentCategoryId": "Men_GiayTheThao"
     },
     {
       "name": "Giày Tây Da",

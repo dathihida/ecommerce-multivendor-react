@@ -5,8 +5,10 @@ import { Button, Divider } from '@mui/material'
 import { Add, AddShoppingCart, FavoriteBorder, LocalShipping, Remove, Shield, Wallet, WorkspacePremium } from '@mui/icons-material'
 import SimilarProduct from './SimilarProduct'
 import ReviewCard from '../Review/ReviewCard'
+import { useAppDispatch } from '../../../State/Store'
 const ProductDetail = () => {
     const [quantity, setQuantity] = useState(1)
+    const dispatch = useAppDispatch()
   return (  
     <div className='px-5 lg:px-20 pt-10'>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
@@ -97,16 +99,12 @@ const ProductDetail = () => {
                     </Button>
                 </div>
                 <div className='mt-5'>
-                <p>The SPMA’s formal academic offering includes an undergraduate degree programme specialising in 
-                Public Administration and International Relations. 
-                This is a bachelors degree that provides a solid foundation for postgraduate studies in 
-                Public Management and Administration. Postgraduate programmes include a 
-                BAdmin: Honours specialising in Public Administration degree, a Masters in Public 
-                Administration (MPA) coursework degree, a research Masters degree (MAdmin) 
-                specialising in Public Administration as well as the PhD programmes specialising 
-                in Public Administration and specialising in Public Policy . 
-                The high esteem in which the SPMA’s programmes are held has contributed to establishing it as a 
-                leading school in public sector education. </p>
+                <p>
+                    The SPMA’s formal academic offering includes an undergraduate degree programme specialising in 
+                    Public Administration and International Relations. 
+                    This is a bachelors degree that provides a solid foundation for postgraduate studies in 
+                    Public Management and Administration. Postgraduate programmes include a 
+                </p>
                 </div>
                 <div className='mt-12 space-y-5'>
                     <ReviewCard/>

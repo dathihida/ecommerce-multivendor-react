@@ -25,3 +25,15 @@ export const signinCustomer = createAsyncThunk<any, any>("/auth/signing",
         }
     }
 )
+
+export const logout = createAsyncThunk<any, any>("/auth/logout",
+    async(navigate, {rejectWithValue}) =>{
+        try{
+            localStorage.clear()
+            console.log("logout success");
+            navigate("/");    
+        }catch(error){
+            console.log("Logout error",error);
+        }
+    }
+)
