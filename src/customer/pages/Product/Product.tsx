@@ -6,6 +6,7 @@ import { useTheme, useMediaQuery, Box, IconButton, FormControl, InputLabel, Sele
 import store, { useAppDispatch, useAppSelector } from '../../../State/Store'
 import { fetchAllProducts } from '../../../State/customer/ProductSlice'
 import { useParams, useSearchParams } from 'react-router-dom'
+import qs from "query-string";
 
 const Product = () => {
   const themeIs = useTheme();
@@ -27,10 +28,45 @@ const Product = () => {
     setPage(value);
   };
 
-  useEffect(() =>{
+//   useEffect(() =>{
+//     const [minPrice, maxPrice] = searchParam.get("price")?.split("-") || [];
+//     const color = searchParam.get("color");
+//     const minDiscount =searchParam.get("discount")?Number(searchParam.get("discount")):undefined;
+//     const pageNumber = page-1;
+//     const newFilter = {
+//         color: color || "",
+//         minPrice: minPrice?Number(minPrice):undefined,
+//         maxPrice: maxPrice?Number(maxPrice):undefined,
+//         minDiscount,
+//         pageNumber
+//     }
+//     dispatch(fetchAllProducts({newFilter}))
+//   }, [category, searchParam])
+
+useEffect(() => {
     const [minPrice, maxPrice] = searchParam.get("price")?.split("-") || [];
-    dispatch(fetchAllProducts({}))
-  }, [category])
+    const color = searchParam.get("color");
+    const minDiscount = searchParam.get("discount") ? Number(searchParam.get("discount")) : undefined;
+    const pageNumber = page - 1;
+
+    // Tạo object filter đúng định dạng
+    const filterParams: Record<string, any> = {
+        color,
+        minPrice: minPrice ? Number(minPrice) : undefined,
+        maxPrice: maxPrice ? Number(maxPrice) : undefined,
+        minDiscount,
+        pageNumber
+    };
+
+    // Xóa các key có giá trị undefined
+    Object.keys(filterParams).forEach(key => filterParams[key] === undefined && delete filterParams[key]);
+
+    // Chuyển object thành query string
+    const queryString = qs.stringify(filterParams, { skipNull: true, skipEmptyString: true });
+
+    // Dispatch API với query string hợp lệ
+    dispatch(fetchAllProducts(queryString));
+}, [category, searchParam]);
   return (
     <div className='-z-10 mt-10'>
         <div>
