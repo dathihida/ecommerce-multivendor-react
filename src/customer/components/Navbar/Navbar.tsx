@@ -45,14 +45,14 @@ const Navbar = () => {
                 <IconButton>
                   <SearchIcon />
                 </IconButton> 
-                {true ? 
+                {false ? 
                   <Button onClick={() =>navigate("/account/orders")} className='flex items-center gap-2'>
                     <Avatar sx={{ width: 29, height: 29 }}
                       src='https://cdn-icons-png.flaticon.com/512/149/149071.png' />
                     <h1 className='font-semibold hidden lg:block'>
                       Dat
                     </h1>
-                  </Button> : <Button variant='contained'>Login</Button>} 
+                  </Button> : <Button onClick={() => navigate("/login")} variant='contained'>Login</Button>} 
 
                   <IconButton>
                     <FavoriteBorder sx={{fontSize:29}}/>
