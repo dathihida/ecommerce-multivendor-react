@@ -6,5 +6,6 @@ export const discount = [
     { "name": "50% and above", "value": 50 },
     { "name": "60% and above", "value": 60 },
     { "name": "70% and above", "value": 70 },
-    { "name": "80% and above", "value": 80 }
+    { "name": "80% and above", "value": 80 },
+    { "name": "90% and above", "value": 90 }
 ];
