@@ -5,7 +5,7 @@ import { Product } from "../../types/ProductTypes";
 
 const API_URL = "http://localhost:8081/products";
 export const fetchProductById = createAsyncThunk("products/fetchProductById", 
-    async(productId, {rejectWithValue})=>{
+    async(productId:number, {rejectWithValue})=>{
     try{
         const response = await axios.get(`${API_URL}/${productId}`);
         const data = response.data;
@@ -83,7 +83,8 @@ const productSlice = createSlice({
 
         builder.addCase(fetchProductById.fulfilled, (state, action) =>{
             state.loading = false;
-            state.products = action.payload;
+            state.product = action.payload;
+            // state.products = action.payload?.content || [];
         })
 
         builder.addCase(fetchProductById.rejected,(state, action) =>{
@@ -112,7 +113,7 @@ const productSlice = createSlice({
 
         builder.addCase(searchProduct.fulfilled, (state, action) =>{
             state.loading = false;
-            state.products = action.payload;
+            state.products = action.payload?.content || [];
         })
 
         builder.addCase(searchProduct.rejected,(state, action) =>{
