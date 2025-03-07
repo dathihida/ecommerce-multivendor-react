@@ -1,7 +1,9 @@
 import React from 'react'
 import ProfileFieldCard from '../../../components/ProfileFieldCard'
+import store, { useAppDispatch, useAppSelector } from '../../../State/Store'
 
 const UserDetails = () => {
+  const {auth} = useAppSelector(store=> store)
   return (
     <div className='flex justify-center py-10'>
         <div className='w-full lg:w-[70%]'>
@@ -10,10 +12,10 @@ const UserDetails = () => {
 
             </div>
             <div className=''>
-                <ProfileFieldCard keys={'Name'} value={'DAT'}/>
-                <ProfileFieldCard keys={'Mobile'} value={'0368746003'}/>
-                <ProfileFieldCard keys={'Email'} value={'tiendat060709@gmail.com'}/>
-                <ProfileFieldCard keys={'Address'} value={'DONGNAI'}/>
+                <ProfileFieldCard keys={'Name'} value={auth.user?.fullName || ""}/>
+                <ProfileFieldCard keys={'Mobile'} value={auth.user?.mobile || ""}/>
+                <ProfileFieldCard keys={'Email'} value={auth.user?.email || ""}/>
+                {/* <ProfileFieldCard keys={'Address'} value={auth.user?.addresses}/> */}
             </div>
         </div>
 

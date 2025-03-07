@@ -1,11 +1,12 @@
 import React from 'react'
-import { useAppDispatch } from '../../../State/Store';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
 import { useFormik } from 'formik';
-import { Button, TextField } from '@mui/material';
+import { Button, CircularProgress, TextField } from '@mui/material';
 import { sendLoginSignupOtp, signinCustomer } from '../../../State/AuthSlice';
 
 const LoginForm = () => {
     const dispatch = useAppDispatch();
+    const {auth} = useAppSelector(store=>store)
     const formik = useFormik({
         initialValues:{
             email:"",
@@ -34,7 +35,7 @@ const LoginForm = () => {
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
             />
-        {true && 
+        {auth.otpSent && 
         <div className='space-y-2'>
           <p className='font-medium text-sm opacity-60'>Enter OTP sent to your email</p>
 
@@ -50,13 +51,14 @@ const LoginForm = () => {
           />
         </div>}
 
-        <Button onClick={()=>handleSentOtp()} fullWidth variant='contained' sx={{py:"11px"}}> 
-          Send Otp
-        </Button>
-
+        {auth.otpSent ? 
         <Button onClick={() => formik.handleSubmit()} fullWidth variant='contained' sx={{py:"11px"}}> 
           Login
-        </Button>
+        </Button> 
+        :
+        <Button onClick={()=>handleSentOtp()} fullWidth variant='contained' sx={{py:"11px"}}> 
+          {auth.loading?<CircularProgress/>:"Send Otp"}
+        </Button>}
       </div>
     </div>
     )

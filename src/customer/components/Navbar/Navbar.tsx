@@ -7,6 +7,7 @@ import { useTheme } from '@mui/material/styles';
 import CategorySheet from './CategorySheet';
 import { mainCategory } from '../../../data/category/mainCategory';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../../State/Store';
 
 const Navbar = () => {
   const themeIs = useTheme();
@@ -14,6 +15,9 @@ const Navbar = () => {
   const [selectCategory, setSelectCategory] = useState('men');
   const [showCategorySheet, setShowCategorySheet] = useState(false);
   const navigate = useNavigate();
+
+  const {auth} = useAppSelector(store=>store)
+  console.log("Auth state in Navbar:", auth);
   return (
     <>
         <Box className='sticky top-0 left-0 right-0 bg-white' sx={{zIndex: 2}}>
@@ -40,19 +44,23 @@ const Navbar = () => {
               </ul>
             </div>
               
-
               <div className='flex items-center gap-1 lg:gap-6'>
                 <IconButton>
                   <SearchIcon />
                 </IconButton> 
-                {false ? 
+                {
+                  auth.user ? 
                   <Button onClick={() =>navigate("/account/orders")} className='flex items-center gap-2'>
                     <Avatar sx={{ width: 29, height: 29 }}
                       src='https://cdn-icons-png.flaticon.com/512/149/149071.png' />
                     <h1 className='font-semibold hidden lg:block'>
-                      Dat
+                      {auth.user?.fullName}
                     </h1>
-                  </Button> : <Button onClick={() => navigate("/login")} variant='contained'>Login</Button>} 
+                  </Button> : 
+                  
+                  <Button onClick={() => navigate("/login")} 
+                    variant='contained'>Login</Button>
+                } 
 
                   <IconButton>
                     <FavoriteBorder sx={{fontSize:29}}/>

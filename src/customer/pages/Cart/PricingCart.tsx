@@ -1,5 +1,5 @@
 import React from 'react'
-import CartItem from './CartItem'
+import CartItem from './CartItemCard'
 import { Divider } from '@mui/material'
 
 const PricingCart = () => {

@@ -31,7 +31,7 @@ const paymentList = [
         label: "momo",
     },
     {
-        value:"VNPay",
+        value:"VNPAY",
         image: "https://stcd02206177151.cloud.edgevnpay.vn/assets/images/logo-icon/logo-primary.svg",
         label: "vnpay",
     }
@@ -40,9 +40,9 @@ const Checkout = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false); 
-    const [paymentGatway, setPaymentGatway] = useState("MOMO");
+    const [paymentGateway, setPaymentGateway] = useState("RAZORPAY");
     const handlePaymentChange = (event:any) =>{
-        setPaymentGatway(event.target.value)
+        setPaymentGateway(event.target.value)
     }
 
   return (
@@ -78,7 +78,7 @@ const Checkout = () => {
                             aria-labelledby="demo-controlled-radio-buttons-group"
                             name="controlled-radio-buttons-group"
                             onChange={handlePaymentChange}
-                            value={paymentGatway}
+                            value={paymentGateway}
                         >
                             {paymentList.map((item) => (
                                 <FormControlLabel 
@@ -121,7 +121,7 @@ const Checkout = () => {
             aria-describedby="modal-modal-description"
             >
             <Box sx={style}>
-                <AddressForm/>
+                <AddressForm paymentGateway = {paymentGateway}/>
             </Box>
         </Modal>
     </> 
