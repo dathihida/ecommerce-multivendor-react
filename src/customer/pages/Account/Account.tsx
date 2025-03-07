@@ -5,6 +5,8 @@ import OrderDetail from './OrderDetail';
 import UserDetails from './UserDetails';
 import Address from './Address';
 import Orders from './Orders';
+import store, { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { logout } from '../../../State/AuthSlice';
 
 const menu=[
     {name: "orders", path: "/account/orders"},
@@ -16,12 +18,20 @@ const menu=[
 const Account = () => {
     const navigate = useNavigate();
     const location = useLocation(); 
+    const dispatch = useAppDispatch();
+    const {auth} = useAppSelector(store=>store)
 
-    const handleClick = (item:any) => navigate(item.path);      
+    const handleClick = (item:any) => {
+        if(item.path === "/"){
+            dispatch(logout(navigate));
+        }
+        navigate(item.path);
+    }
+
   return (
     <div className='px-5 lg:px-52 min-h-screen mt-10'>
         <div>
-            <h1 className='text-xl font-bold pb-5'>Dat</h1>
+            <h1 className='text-xl font-bold pb-5'>{auth.user?.fullName}</h1>
         </div>
         <Divider/>
         <div className='grid grid-cols-1 lg:grid-cols-3 lg:min-h-[78hv]'>

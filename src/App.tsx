@@ -21,21 +21,35 @@ import { fetchProducts } from './State/fetchProduct';
 import { useAppDispatch, useAppSelector } from './State/Store';
 import { fetchSellerProfile } from './State/seller/sellerSlice';
 import Auth from './customer/pages/Auth/Auth';
+import { fetchUserProfile } from './State/AuthSlice';
+import { boolean } from 'yup';
+import PaymentSuccess from './customer/pages/PaymentSuccess';
 
 function App() {
   const dispatch = useAppDispatch();
-  const {seller} = useAppSelector(store => store)
+  const {seller, auth} = useAppSelector(store => store)
   const navigate = useNavigate();
+  // const checkoutJwt = () =>{
+  //   if(localStorage.getItem("jwt") == null){
+  //     console.log("login failed");
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   useEffect(()=>{
     dispatch(fetchSellerProfile(localStorage.getItem("jwt") || ""))
-  },[])
+  }, [])
 
   useEffect(()=>{
     if(seller.profile){
       navigate("/seller")
     }
   },[seller.profile])
+
+  useEffect(() => {
+    dispatch(fetchUserProfile({jwt: auth.jwt || localStorage.getItem("jwt")}))
+  }, [auth.jwt]);
   return (
       <ThemeProvider theme={customerTheme}>
         
@@ -49,6 +63,7 @@ function App() {
             <Route path='/product-details/:categoryId/:name/:productId' element={<ProductDetail/>}/>
             <Route path='/cart/' element={<Cart/>}/>
             <Route path='/checkout' element={<Checkout/>}/>
+            <Route path='/payment-success/:orderId' element={<PaymentSuccess/>}/>
             <Route path='/account/*' element={<Account/>}/>
             {/* becomeseller */}
             <Route path='/become-seller' element={<BecomeSeller/>}/>
