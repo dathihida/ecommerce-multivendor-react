@@ -24,6 +24,7 @@ import Auth from './customer/pages/Auth/Auth';
 import { fetchUserProfile } from './State/AuthSlice';
 import { boolean } from 'yup';
 import PaymentSuccess from './customer/pages/PaymentSuccess';
+import Wishlist from './customer/WishList/Wishlist';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -62,6 +63,7 @@ function App() {
             <Route path='/reviews/:productId' element={<Review/>}/>
             <Route path='/product-details/:categoryId/:name/:productId' element={<ProductDetail/>}/>
             <Route path='/cart/' element={<Cart/>}/>
+            <Route path='/wishlist' element={<Wishlist/>}/>
             <Route path='/checkout' element={<Checkout/>}/>
             <Route path='/payment-success/:orderId' element={<PaymentSuccess/>}/>
             <Route path='/account/*' element={<Account/>}/>

@@ -5,11 +5,13 @@ import { Favorite, ModeComment } from '@mui/icons-material';
 import { teal } from '@mui/material/colors';
 import { Product } from '../../../types/ProductTypes';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../../State/Store';
 
 const ProductCard = ({item}:{item:Product}) => {  
   const [currentImage, setCurrentImage] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     let interval: any;
