@@ -9,6 +9,7 @@ export const sellerLogin = createAsyncThunk<any, any>("/auth/signing",
             console.log("sellers login otp", response.data);
             const jwt = response.data.jwt;
             localStorage.setItem("jwt", jwt);
+            return response.data;
         } catch (error) {
             console.log("error seller: ",error)
         }
