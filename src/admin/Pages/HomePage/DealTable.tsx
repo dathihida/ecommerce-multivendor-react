@@ -1,6 +1,8 @@
 import { Delete, Edit } from '@mui/icons-material';
 import { IconButton, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow } from '@mui/material';
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { getAllDeals } from '../../../State/admin/DealSlice';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -41,6 +43,13 @@ const rows = [
 ];
 
 export default function DealTable() {
+  const dispatch = useAppDispatch();
+  const {deal} = useAppSelector(store => store)
+
+  useEffect(() => {
+    dispatch(getAllDeals())
+  },[])
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -55,14 +64,16 @@ export default function DealTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {deal.deals.map((item, index) => (
+            <StyledTableRow key={item.id}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {index + 1}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
+              <StyledTableCell align="right">
+                <img src={item.category.image} alt="category" width="50"/>
+              </StyledTableCell>
+              <StyledTableCell align="right">{item.category.categoryId}</StyledTableCell>
+              <StyledTableCell align="right">{item.discount}</StyledTableCell>
               <StyledTableCell align="right">
                 <Edit/>
               </StyledTableCell>
