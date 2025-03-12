@@ -1,8 +1,13 @@
 import React from 'react'
+import { useAppSelector } from '../../../State/Store'
+import HomeCategoryTable from './HomeCategoryTable'
 
 const ShopByCategoryTable = () => {
+  const {customer} = useAppSelector(store => store)
   return (
-    <div>ShopByCategoryTable</div>
+    <div>
+      <HomeCategoryTable data={customer.homePageData?.shopByCategories || []}/>
+    </div>
   )
 }
 

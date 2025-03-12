@@ -25,21 +25,18 @@ import { fetchUserProfile } from './State/AuthSlice';
 import { boolean } from 'yup';
 import PaymentSuccess from './customer/pages/PaymentSuccess';
 import Wishlist from './customer/WishList/Wishlist';
+import { create } from 'domain';
+import { createHomeCategory } from './State/customer/customerSlice';
+import { homeCategories } from './data/HomeCategories';
 
 function App() {
   const dispatch = useAppDispatch();
   const {seller, auth} = useAppSelector(store => store)
   const navigate = useNavigate();
-  // const checkoutJwt = () =>{
-  //   if(localStorage.getItem("jwt") == null){
-  //     console.log("login failed");
-  //     return false;
-  //   }
-  //   return true;
-  // }
 
   useEffect(()=>{
     dispatch(fetchSellerProfile(localStorage.getItem("jwt") || ""))
+    dispatch(createHomeCategory(homeCategories))
   }, [])
 
   useEffect(()=>{
