@@ -46,6 +46,7 @@ export const addItemToCart = createAsyncThunk<
         const response = await api.put(`${API_URL}/add`, request,{
             headers:{
                 Authorization: `Bearer ${jwt}`,
+                //Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NDM2NjkzMzIsImV4cCI6MTc0Mzc1NTczMiwiZW1haWwiOiJ0aWVuZGF0MDYwNzA5QGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9DVVNUT01FUiJ9.kiSXNUP4bQgNmJQBP86gOuqe7Tn4lpYug2jn_i_XW1k',
             },
         });
         console.log("Cart added", response.data);

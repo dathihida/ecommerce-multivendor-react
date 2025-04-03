@@ -4,17 +4,25 @@ import { Button, IconButton } from '@mui/material'
 import React from 'react'
 import { CartItem } from '../../../types/cartTypes'
 import { useAppDispatch } from '../../../State/Store'
-import { updateCartItem } from '../../../State/customer/cartSlice'
+import { deleteItemToCart, updateCartItem } from '../../../State/customer/cartSlice'
 
 const CartItemCard = ({item}:{item:CartItem}) => {
     const dispatch = useAppDispatch();
     
     const handleUpdateQuantity = (value: number) =>() => {
-        dispatch(updateCartItem({jwt:localStorage.getItem("jwt"), 
+        dispatch(updateCartItem({
+            jwt:localStorage.getItem("jwt"), 
             cartItemId: item.id, 
             cartItem:{quantity:item.quantity+value}
         }))
     }
+    const handleDeleteItem = (value: number) =>()=>{
+        dispatch(deleteItemToCart({
+            jwt:localStorage.getItem("jwt") || "",
+            cartItemId: item.id
+        }))
+    }
+
   return (
     <div className='border rounded-md relative p-4 shadow-sm bg-white'>
             <div className='flex gap-4 items-center'>
@@ -48,9 +56,12 @@ const CartItemCard = ({item}:{item:CartItem}) => {
                 </div>
             </div>
             <div className='absolute top-2 right-2 border rounded-full'>
-                <IconButton color='error'>
-                    <Close />
-                </IconButton>
+                <Button onClick={handleDeleteItem(item.id)}>
+                    <IconButton color='error'>
+                        <Close />
+                    </IconButton>
+                </Button>
+                
             </div>
         </div>
   )

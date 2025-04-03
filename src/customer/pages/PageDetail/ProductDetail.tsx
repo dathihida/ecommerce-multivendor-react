@@ -8,12 +8,26 @@ import ReviewCard from '../Review/ReviewCard'
 import store, { useAppDispatch, useAppSelector } from '../../../State/Store'
 import { useParams } from 'react-router-dom'
 import { fetchProductById } from '../../../State/customer/ProductSlice'
+import { addItemToCart } from '../../../State/customer/cartSlice'
 const ProductDetail = () => {
     const [quantity, setQuantity] = useState(1)
     const dispatch = useAppDispatch()
     const{productId} = useParams()
     const{product} = useAppSelector(store=>store)
     const [activeImage, setActiveImage] = useState(0);
+    
+    
+    const {cart} = useAppSelector(store=>store)
+    
+    const handleAddToCart = () => {
+    if (!product.product?.id) return;
+    dispatch(addItemToCart({
+        jwt: localStorage.getItem("token"), 
+        request: { productId: product.product?.id, size: "M", quantity: quantity }
+    }));
+    };
+
+
     useEffect(()=>{
         dispatch(fetchProductById(Number(productId)))
     },[productId])
@@ -107,7 +121,7 @@ const ProductDetail = () => {
                 </div>
 
                 <div className='mt-12 flex items-center gap-5'>
-                    <Button
+                    <Button onClick={handleAddToCart}
                         fullWidth
                         variant='contained'
                         startIcon={<AddShoppingCart/>}
