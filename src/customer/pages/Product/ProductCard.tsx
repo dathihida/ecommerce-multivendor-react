@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './ProductCard.css'
 import { Button } from '@mui/material';
-import { Favorite, ModeComment } from '@mui/icons-material';
+import { Add, Favorite, ModeComment } from '@mui/icons-material';
 import { teal } from '@mui/material/colors';
 import { Product } from '../../../types/ProductTypes';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../State/Store';
+import { useAppDispatch } from '../../../State/Store'
+import { addItemToCart } from '../../../State/customer/cartSlice'; // Adjust the path if necessary
 import { addProductToWishlist } from '../../../State/customer/wishlistSlice';
 
 const ProductCard = ({item}:{item:Product}) => {  
@@ -13,6 +14,23 @@ const ProductCard = ({item}:{item:Product}) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  // const handleAddToCart = () => {
+  //   dispatch(addItemToCart({
+  //     jwt:localStorage.getItem("jwt"),
+  //     request: { productId: item.id, size: "M", quantity: 1 }
+  //   }));
+  // };
+  const handleAddToCart = () => {
+          dispatch(addItemToCart({jwt:localStorage.getItem("jwt"), 
+              request:{
+                productId: item.id,
+                size: item.sizes,
+                quantity: 1
+              }
+          }))
+      }
+
 
   useEffect(() => {
     let interval: any;
@@ -50,6 +68,10 @@ const ProductCard = ({item}:{item:Product}) => {
               <div className='flex gap-3'>
                 <Button onClick={handleWishlist} variant='contained' color='secondary'>
                   <Favorite sx={{color:teal[500]}}/>
+                </Button>
+
+                <Button onClick={handleAddToCart} variant='contained' color='secondary'>
+                  <Add sx={{color:teal[500]}}/>
                 </Button>
 
                 <Button variant='contained' color='secondary'>
