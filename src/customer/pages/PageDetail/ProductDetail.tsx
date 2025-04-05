@@ -19,13 +19,15 @@ const ProductDetail = () => {
     
     const {cart} = useAppSelector(store=>store)
     
-    const handleAddToCart = () => {
-    if (!product.product?.id) return;
-    dispatch(addItemToCart({
-        jwt: localStorage.getItem("token"), 
-        request: { productId: product.product?.id, size: "M", quantity: quantity }
-    }));
-    };
+     const handleAddToCart = () => {
+              dispatch(addItemToCart({jwt:localStorage.getItem("jwt"), 
+                  request:{
+                    productId: product.product?.id ?? 0,
+                    size: product.product?.sizes || "",
+                    quantity: quantity
+                  }
+              }))
+          }
 
 
     useEffect(()=>{

@@ -90,16 +90,7 @@ const Checkout = () => {
                                         <img className="w-10" src={item.image} alt={item.label} />
                                     } 
                                 />
-                            ))} 
-                            {/* {paymentList.map((item, index) => (
-                                <FormControlLabel 
-                                    key={item.value} 
-                                    className='border rounded-md flex justify-center items-center'
-                                    value={item.value} 
-                                    control={<Radio />} 
-                                    label={<img className="w-10" src={item.image} alt={item.label} />} 
-                                />
-                            ))} */}
+                            ))}
                         </RadioGroup>
                     </div>
                     <div className='border rounded-md'>
