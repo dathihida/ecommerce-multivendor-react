@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { WishList, WishListState } from "../../types/wishListTypes";
 import { api } from "../../config/Api";
-import { resetCartState } from "./cartSlice";
 
 const initialState: WishListState={
     wishlist: null,
@@ -45,7 +44,7 @@ export const addProductToWishlist = createAsyncThunk(
                     }
                 }
             )
-            console.log("add product", response.data)
+            console.log("add product to wish list" , response.data)
             return response.data;
         } catch (error: any) {
             return rejectWithValue(

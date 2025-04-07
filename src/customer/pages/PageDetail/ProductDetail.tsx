@@ -9,6 +9,7 @@ import store, { useAppDispatch, useAppSelector } from '../../../State/Store'
 import { useParams } from 'react-router-dom'
 import { fetchProductById } from '../../../State/customer/ProductSlice'
 import { addItemToCart } from '../../../State/customer/cartSlice'
+import { addProductToWishlist } from '../../../State/customer/wishlistSlice'
 const ProductDetail = () => {
     const [quantity, setQuantity] = useState(1)
     const dispatch = useAppDispatch()
@@ -28,7 +29,9 @@ const ProductDetail = () => {
                   }
               }))
           }
-
+    const handleAddToWishlist = () => {
+        dispatch(addProductToWishlist({ productId: product.product?.id ?? 0 }))
+    }
 
     useEffect(()=>{
         dispatch(fetchProductById(Number(productId)))
@@ -37,6 +40,7 @@ const ProductDetail = () => {
     const handleActiveImage = (value:number)=>()=>{
         setActiveImage(value);
     }
+    
     console.log("product-product", product.products)
   return (  
     <div className='px-5 lg:px-20 pt-10'>
@@ -131,7 +135,7 @@ const ProductDetail = () => {
                             Add To Cart
                     </Button>
 
-                    <Button
+                    <Button onClick={handleAddToWishlist}
                         fullWidth
                         variant='contained'
                         startIcon={<FavoriteBorder/>}

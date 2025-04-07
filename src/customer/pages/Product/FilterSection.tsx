@@ -29,6 +29,7 @@ const FilterSection = () => {
 
   const clearAllFilters = () => {
     setSearchParams({});
+    setExpendColor(false);
   };
   
   return (
@@ -67,14 +68,19 @@ const FilterSection = () => {
             onChange={updateFilterParams}
           >
             {colors.slice(0, expendColor?colors.length:5).map((color) => 
-              <FormControlLabel value={color.name} control={<Radio />} className='uppercase' 
+              <FormControlLabel 
+                key={color.name} 
+                value={color.name} 
+                control={<Radio />} 
+                className='uppercase' 
                 label={
                   <div className='flex items-center gap-3'>
                     <p>{color.name}</p>
                     <p style={{backgroundColor:color.hex}} 
                       className={`h-5 w-5 rounded-full ${color.name === "White" ? "border": ""}`}></p>
                   </div>
-                } />
+                } 
+              />
             )}
             
           </RadioGroup>
@@ -88,7 +94,6 @@ const FilterSection = () => {
         </div>
         </section>
 
-        
         <section >
         <FormControl>
           <FormLabel 
