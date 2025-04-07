@@ -56,6 +56,9 @@ function App() {
           <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Auth/>}/>
+            {/* hien thi toan bo*/}
+            <Route path='/products/' element={<Product/>}/>
+            {/* hien thi theo category*/}
             <Route path='/products/:category' element={<Product/>}/>
             <Route path='/reviews/:productId' element={<Review/>}/>
             <Route path='/product-details/:categoryId/:name/:productId' element={<ProductDetail/>}/>

@@ -11,23 +11,26 @@ const FilterSection = () => {
   const handleColorToggle = () => {
     setExpendColor(!expendColor);
   };
-  const updateFilterParams = (e: any) => {
-    const { value, name } = e.target;
-    if(value) {
-      searchParams.set(name, value);
-    }else{
-      searchParams.delete(name);
-    }
-    setSearchParams(searchParams);
-  };
+
+  const updateFilterParams = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { value, name } = e.target;
+  const newSearchParams = new URLSearchParams(searchParams.toString());
+
+  if (value) {
+    newSearchParams.set(name, value);
+  } else {
+    newSearchParams.delete(name);
+  }
+
+  setSearchParams(newSearchParams);
+};
+
+  
 
   const clearAllFilters = () => {
-    console.log("clear all filters", searchParams);
-    searchParams.forEach((value:any, key:any) => {
-      searchParams.delete(key);
-    });
-    setSearchParams(searchParams);
+    setSearchParams({});
   };
+  
   return (
     <div className='-z-50 space-y-5 bg-white'>
       <div className='flex items-center justify-between px-9 h-[40px] lg:border-r'>

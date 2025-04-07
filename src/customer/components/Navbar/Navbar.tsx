@@ -17,7 +17,8 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const {auth} = useAppSelector(store=>store)
-  console.log("Auth state in Navbar:", auth);
+  console.log("Auth state in Navbar:", auth.jwt);
+  console.log("Auth state in Navbar:", localStorage.getItem("jwt"));
   return (
     <>
         <Box className='sticky top-0 left-0 right-0 bg-white' sx={{zIndex: 2}}>

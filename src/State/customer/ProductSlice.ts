@@ -35,28 +35,29 @@ export const searchProduct = createAsyncThunk("products/searchProduct",
 export const fetchAllProducts = createAsyncThunk<any, any>(
     "products/fetchAllProducts",
     async (params, { rejectWithValue }) => {
-        try {
-            console.log("Fetching API with params:", params);
-            const response = await axios.get(`${API_URL}`, {
-                params: {
-                    ...params,
-                    pageNumber: params.pageNumber || 0
-                }
-            });
-            console.log("API Response:", response.data);
-            return response.data;
-        } catch (error: any) {
-            console.error("All product Error", error);
-            return rejectWithValue(error.response?.data || "Unknown error");
-        }
+      try {
+        const response = await axios.get(`${API_URL}`, {
+          params: params ? {
+            ...params,
+            pageNumber: params.pageNumber || 0
+          } : {} // nếu params null thì không gửi gì hết
+        });
+        console.log("API Response:", response.data);
+        return response.data;
+      } catch (error: any) {
+        console.error("All product Error", error);
+        return rejectWithValue(error.response?.data || "Unknown error");
+      }
     }
-);
+  );
+  
 
 
 interface ProductState{
     product: Product | null;
     products:Product[];
     totalPages:number;
+    currentPage: number;
     loading:boolean;
     error:string | null | undefined | any;
     searchProduct:Product[]
@@ -66,6 +67,7 @@ const initialState : ProductState = {
     product: null,
     products:[],
     totalPages:1,
+    currentPage: 1, 
     loading:false,
     error: null,
     searchProduct:[]
@@ -84,7 +86,7 @@ const productSlice = createSlice({
         builder.addCase(fetchProductById.fulfilled, (state, action) =>{
             state.loading = false;
             state.product = action.payload;
-            // state.products = action.payload?.content || [];
+            state.totalPages = action.payload?.totalPages || 1; 
         })
 
         builder.addCase(fetchProductById.rejected,(state, action) =>{
@@ -100,6 +102,9 @@ const productSlice = createSlice({
         builder.addCase(fetchAllProducts.fulfilled, (state, action) =>{
             state.loading = false;
             state.products = action.payload?.content || [];
+            // state.products = action.payload.products;
+            state.totalPages = action.payload.totalPages;
+            state.currentPage = action.payload.currentPage;
         })
 
         builder.addCase(fetchAllProducts.rejected,(state, action) =>{

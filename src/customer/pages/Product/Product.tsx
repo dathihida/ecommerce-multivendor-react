@@ -17,7 +17,6 @@ const Product = () => {
   const {category}=useParams();
   const {product} = useAppSelector((store)=>store)
 
-
   console.log("Product", product.products);
   const handleSortChange = (event: any) => {
     setSort(event.target.value);
@@ -27,21 +26,73 @@ const Product = () => {
     setPage(value);
   };
 
-  useEffect(() =>{
+//   useEffect(() =>{
+//     const [minPrice, maxPrice] = searchParam.get("price")?.split("-") || [];
+//     const color = searchParam.get("color");
+//     const discount =searchParam.get("discount")?Number(searchParam.get("discount")):undefined;
+//     const pageNumber = page-1;
+//     // const newFilter = {
+//     //     color: color || "",
+//     //     minPrice: minPrice?Number(minPrice):undefined,
+//     //     maxPrice: maxPrice?Number(maxPrice):undefined,
+//     //     discount: discount || "",
+//     //     pageNumber: pageNumber
+//     // }
+//     const newFilter = {
+//         color: color || "",
+//         minPrice: minPrice ? Number(minPrice) : undefined,
+//         maxPrice: maxPrice ? Number(maxPrice) : undefined,
+//         discount: discount || "",
+//         pageNumber: pageNumber,
+//         sort: sort || "",
+//         category: category || ""
+//     };
+//     dispatch(fetchAllProducts(newFilter))
+//   }, [category, searchParam, page, sort])
+
+// useEffect(() => {
+//     const [minPrice, maxPrice] = searchParam.get("price")?.split("-") || [];
+//     const color = searchParam.get("color");
+//     const discount = searchParam.get("discount") ? Number(searchParam.get("discount")) : undefined;
+//     const sortParam = sort || "";
+//     const categoryParam = category || "";
+//     const hasFilter = minPrice || maxPrice || color || discount || sortParam || categoryParam;
+  
+//     const newFilter = hasFilter ? {
+//       color: color || "",
+//       minPrice: minPrice ? Number(minPrice) : undefined,
+//       maxPrice: maxPrice ? Number(maxPrice) : undefined,
+//       discount: discount || "",
+//       pageNumber: page - 1,
+//       sort: sortParam,
+//       category: categoryParam
+//     } : null;
+  
+//     dispatch(fetchAllProducts(newFilter));
+//   }, [category, searchParam, page, sort]);
+  
+
+useEffect(() => {
     const [minPrice, maxPrice] = searchParam.get("price")?.split("-") || [];
     const color = searchParam.get("color");
-    const discount =searchParam.get("discount")?Number(searchParam.get("discount")):undefined;
-    const pageNumber = page-1;
-    const newFilter = {
-        color: color || "",
-        minPrice: minPrice?Number(minPrice):undefined,
-        maxPrice: maxPrice?Number(maxPrice):undefined,
-        discount: discount || "",
-        pageNumber: pageNumber
-    }
-    dispatch(fetchAllProducts(newFilter))
-  }, [category, searchParam])
-
+    const discount = searchParam.get("discount") ? Number(searchParam.get("discount")) : undefined;
+    const pageNumber = page - 1;
+  
+    const newFilter: any = {
+      pageNumber,
+      sort: sort || ""
+    };
+  
+    if (color) newFilter.color = color;
+    if (minPrice) newFilter.minPrice = Number(minPrice);
+    if (maxPrice) newFilter.maxPrice = Number(maxPrice);
+    if (discount) newFilter.discount = discount;
+    if (category) newFilter.category = category;
+  
+    console.log("New Filter:", newFilter);
+    dispatch(fetchAllProducts(newFilter));
+  }, [category, searchParam, page, sort]);
+  
   return (
     <div className='-z-10 mt-10'>
         <div>
@@ -93,9 +144,12 @@ const Product = () => {
                     {product.products.map((item) => <ProductCard item={item}/>)}
                 </section>
                         
-                <Pagination count={10} page={page} 
-                    onChange={(e, value) => handlePageChange(value)} 
-                    className='flex justify-center py-5'/>
+                <Pagination
+                    count={product.totalPages}
+                    page={page}
+                    onChange={(e, value) => handlePageChange(value)}
+                    className="flex justify-center py-5"
+                    />
             </div>
             
         </div>
