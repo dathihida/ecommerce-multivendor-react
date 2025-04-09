@@ -1,5 +1,5 @@
-import { Avatar, Box, Button, IconButton, useMediaQuery } from '@mui/material'
-import React, { useState } from 'react'
+import { Avatar, Badge, Box, Button, IconButton, useMediaQuery } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { AddShoppingCart, FavoriteBorder, Storefront } from '@mui/icons-material';
@@ -7,7 +7,10 @@ import { useTheme } from '@mui/material/styles';
 import CategorySheet from './CategorySheet';
 import { mainCategory } from '../../../data/category/mainCategory';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../../State/Store';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { useDispatch } from 'react-redux';
+import { getWishlistByUserId } from '../../../State/customer/wishlistSlice';
+import { fetchUserCart } from '../../../State/customer/cartSlice';
 
 const Navbar = () => {
   const themeIs = useTheme();
@@ -15,8 +18,14 @@ const Navbar = () => {
   const [selectCategory, setSelectCategory] = useState('men');
   const [showCategorySheet, setShowCategorySheet] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
 
-  const {auth} = useAppSelector(store=>store)
+  useEffect(() => {
+    dispatch(getWishlistByUserId());
+    dispatch(fetchUserCart(localStorage.getItem("jwt") || ""))
+  }, [dispatch]);
+
+  const {auth, cart, wishlist} = useAppSelector(store=>store)
   console.log("Auth state in Navbar:", auth.jwt);
   console.log("Auth state in Navbar:", localStorage.getItem("jwt"));
   return (
@@ -63,12 +72,17 @@ const Navbar = () => {
                     variant='contained'>Login</Button>
                 } 
 
-                  <IconButton onClick={()=>navigate("/wishlist")}>
-                    <FavoriteBorder sx={{fontSize:29}}/>
-                  </IconButton>   
-                  <IconButton onClick={()=>navigate("/cart")}>
-                    <AddShoppingCart className='text-gray-700' sx={{fontSize:29}}/>
-                  </IconButton>  
+                  <Badge badgeContent={wishlist.wishlist?.products.length || 0} color="primary">
+                    <IconButton onClick={()=>navigate("/wishlist")}>
+                      <FavoriteBorder sx={{fontSize:29}}/>
+                    </IconButton>   
+                  </Badge>
+                  
+                  <Badge badgeContent={cart.cart?.cartItems.length || 0} color="primary">
+                    <IconButton onClick={()=>navigate("/cart")}>
+                      <AddShoppingCart sx={{fontSize:29}}/>
+                    </IconButton> 
+                  </Badge>  
 
                   {isLarge && 
                     <Button onClick={()=> navigate("/become-seller")} 

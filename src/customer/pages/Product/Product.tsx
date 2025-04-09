@@ -75,7 +75,7 @@ const Product = () => {
 useEffect(() => {
     const [minPrice, maxPrice] = searchParam.get("price")?.split("-") || [];
     const color = searchParam.get("color");
-    const discount = searchParam.get("discount") ? Number(searchParam.get("discount")) : undefined;
+    const discountPercent = searchParam.get("discountPercent") ? Number(searchParam.get("discountPercent")) : undefined;
     const pageNumber = page - 1;
   
     const newFilter: any = {
@@ -86,7 +86,7 @@ useEffect(() => {
     if (color) newFilter.color = color;
     if (minPrice) newFilter.minPrice = Number(minPrice);
     if (maxPrice) newFilter.maxPrice = Number(maxPrice);
-    if (discount) newFilter.discount = discount;
+    if (discountPercent) newFilter.discountPercent = discountPercent;
     if (category) newFilter.category = category;
   
     console.log("New Filter:", newFilter);

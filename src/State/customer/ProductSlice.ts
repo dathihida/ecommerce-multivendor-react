@@ -40,7 +40,7 @@ export const fetchAllProducts = createAsyncThunk<any, any>(
           params: params ? {
             ...params,
             pageNumber: params.pageNumber || 0
-          } : {} // nếu params null thì không gửi gì hết
+          } : {}
         });
         console.log("API Response:", response.data);
         return response.data;

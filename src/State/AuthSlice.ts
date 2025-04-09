@@ -84,6 +84,7 @@ export const logout = createAsyncThunk<any, any>("/auth/logout",
         try{
             localStorage.clear()
             console.log("logout success");
+            
             navigate("/"); 
         }catch(error){
             console.log("Logout error",error);

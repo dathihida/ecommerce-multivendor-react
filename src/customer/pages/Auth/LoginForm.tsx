@@ -3,9 +3,11 @@ import { useAppDispatch, useAppSelector } from '../../../State/Store';
 import { useFormik } from 'formik';
 import { Button, CircularProgress, TextField } from '@mui/material';
 import { sendLoginSignupOtp, signinCustomer } from '../../../State/AuthSlice';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const {auth} = useAppSelector(store=>store)
     const formik = useFormik({
         initialValues:{
@@ -16,6 +18,7 @@ const LoginForm = () => {
             console.log("form data", values)
             // dispatch(sellerLogin(values))
             dispatch(signinCustomer(values));
+            navigate("/");
         }
     })
     const handleSentOtp=()=>{

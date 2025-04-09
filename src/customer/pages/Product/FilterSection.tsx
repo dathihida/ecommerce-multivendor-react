@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { colors } from '../../../data/Filter/color'
 import { useSearchParams } from 'react-router-dom';
 import { price } from '../../../data/Filter/price';
-import { discount } from '../../../data/Filter/discount';
+import { discountPercent } from '../../../data/Filter/discount';
 
 const FilterSection = () => {
   const [expendColor, setExpendColor] = useState(false);
@@ -14,18 +14,18 @@ const FilterSection = () => {
 
   const updateFilterParams = (e: React.ChangeEvent<HTMLInputElement>) => {
   const { value, name } = e.target;
+  console.log('Filter changed:', name, value);
   const newSearchParams = new URLSearchParams(searchParams.toString());
 
   if (value) {
     newSearchParams.set(name, value);
+
   } else {
     newSearchParams.delete(name);
   }
 
   setSearchParams(newSearchParams);
 };
-
-  
 
   const clearAllFilters = () => {
     setSearchParams({});
@@ -127,7 +127,7 @@ const FilterSection = () => {
         </FormControl>
         </section>
 
-        <section >
+        {/* <section >
         <FormControl>
           <FormLabel 
             sx=
@@ -138,16 +138,50 @@ const FilterSection = () => {
               pb:"14px"
             }} 
             className='text-2xl font-semibold'
-            id="price">
+            id="discountPercent">
+              Discount
+            </FormLabel>
+            <RadioGroup
+              onChange={updateFilterParams}
+              aria-labelledby="discountPercent"
+              value={searchParams.get("discountPercent") || ""}
+              name="discountPercent"
+            >
+
+            {discount.map((item, index)=>(
+              <FormControlLabel 
+              key={item.name}
+              value={item.value}
+              control={<Radio size="small"/>}
+              label={item.name}
+              />
+            ))}
+            
+          </RadioGroup>
+        </FormControl>
+        </section> */}
+
+<section >
+        <FormControl>
+          <FormLabel 
+            sx=
+            {{
+              fontSize: "16px",
+              fontWeight: "bold",
+              color: "teal[600]",
+              pb:"14px"
+            }} 
+            className='text-2xl font-semibold'
+            id="discountPercent">
               Discount
             </FormLabel>
           <RadioGroup
           onChange={updateFilterParams}
-            aria-labelledby="discount"
+            aria-labelledby="discountPercent"
             defaultValue=""
-            name="discount"
+            name="discountPercent"
           >
-            {discount.map((item, index)=>(
+            {discountPercent.map((item, index)=>(
               <FormControlLabel 
               key={item.name}
               value={item.value}
