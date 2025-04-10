@@ -2,18 +2,22 @@ import React from 'react'
 import CartItem from './CartItemCard'
 import { Divider } from '@mui/material'
 import store, { useAppDispatch, useAppSelector } from '../../../State/Store'
+import { sumCartItemSellingPrice } from '../../../Util/sumCartItemMrpPrice'
 
 const PricingCart = () => {
   // const{cart} = useAppDispatch(store=> store);
   const {cart} = useAppSelector(store => store)
   const cartItems = cart.cart?.cartItems || [];
 
-  const subtotal = cartItems.reduce((sum, item) => sum + item.quantity * item.sellingPrice, 0);
-  const discount = 10;
-  const shipping = 15;
-  const platform = 0;
+  const subtotal = sumCartItemSellingPrice(cartItems);
+  const discount = cart.cart?.discount || 0;
+  const couponValue = subtotal * (discount / 100);
+  const total = subtotal - couponValue;
 
-  const total = subtotal - discount + shipping + platform;
+  console.log("cartItems", cartItems);
+  console.log("subtotal", subtotal);
+  console.log("discount", discount);
+  console.log("total", total);
   
   return (
     <>
@@ -25,12 +29,12 @@ const PricingCart = () => {
 
         <div className='flex justify-between items-center'>
           <span>Discount</span>
-          <span>{discount}VND</span>
+          <span>{discount}%</span>
         </div>
 
         <div className='flex justify-between items-center'>
           <span>Shipping</span>
-          <span>{shipping}VND</span>
+          <span>{0}VND</span>
         </div>
 
         <div className='flex justify-between items-center'>
