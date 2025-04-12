@@ -33,6 +33,12 @@ const Cart = () => {
       jwt
     }));
   }  
+  console.log("Coupon state:", {
+    couponApplied: cart.couponApplied,
+    couponCode: cart.cart?.couponCode
+  })
+  
+
   return (
     <div className='pt-10 px-5 sm:px-10 md:px-60 min-h-screen'>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-5'>
@@ -49,23 +55,31 @@ const Cart = () => {
                       <span>Apply Coupons</span>
                     </div>
                   
-                    { true ? <div className='flex items-center justify-between'>
-                      <TextField onChange={handleChange} placeholder='coupon code' size='small'
-                        id="outline-basic" label="Coupon Code " variant='outlined'/>
-                      <Button size='small' onClick={handleApplyCoupon} variant='contained'>
-                        Apply
-                      </Button>
-                    </div>:
-                    <div className='flex'>
-                      <div className='p-1 pl-5 pr-3 border rounded-md bg-gray-100 flex 
-                        items-center gap-2'>
-                        <span>Applied</span>
+                    {cart.couponApplied || !!cart.cart?.couponCode ?(
+                      <div className='flex justify-between items-center border rounded-md bg-gray-100 p-2'>
+                        <span className='font-medium text-sm text-green-600'>
+                          Applied Coupon: <strong>{cart.cart?.couponCode}</strong>
+                        </span>
                         <IconButton size='small'>
-                          <Close className='text-red-600'/>
+                          <Close className='text-red-600' />
                         </IconButton>
                       </div>
-                    </div>
-                    }
+                    ) : (
+                      <div className='flex items-center justify-between gap-2'>
+                        <TextField
+                          onChange={handleChange}
+                          placeholder='Enter coupon'
+                          size='small'
+                          id='outlined-basic'
+                          label='Coupon Code'
+                          variant='outlined'
+                          value={couponCode}
+                        />
+                        <Button size='small' onClick={handleApplyCoupon} variant='contained'>
+                          Apply
+                        </Button>
+                      </div>
+                    )}
                   </div>
                   <div className='border rounded-md'>
                     <PricingCart />

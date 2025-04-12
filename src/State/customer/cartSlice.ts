@@ -8,12 +8,14 @@ interface CartState{
     cart: Cart | null;
     loading: boolean;
     error:string | null;
+    couponApplied : boolean;
 }
 
 const initialState: CartState = {
     cart: null,
     loading: false,
     error: null,
+    couponApplied: false,
 }
 
 const API_URL = "/api/cart";
@@ -99,6 +101,7 @@ const cartSlice = createSlice({
             state.cart = null;
             state.loading = false;
             state.error = null;
+            state.couponApplied = false;
         }
     },
     extraReducers: (builder)=>{
@@ -181,13 +184,30 @@ const cartSlice = createSlice({
                 state.error = action.payload as string;
             })
 
-            .addCase(applyCoupon.fulfilled, (state, action)=>{
+            .addCase(applyCoupon.pending, (state) =>{
+                state.loading = true;
+                state.error = null;
+            })
+
+            .addCase(applyCoupon.fulfilled, (state, action) => {
                 state.loading = false;
                 state.cart = action.payload;
+            
+                if (action.payload?.couponCode) {
+                    state.couponApplied = true;
+                }
             })
+            
+
+            .addCase(applyCoupon.rejected,
+                (state, action: PayloadAction<string | undefined>) => {
+                    state.loading = false;
+                    state.error = action.payload || "Failed to apply coupon";
+                    state.couponApplied = false;
+                }
+            )
             
     }
 })
 
 export default cartSlice.reducer;
-export const {resetCartState} = cartSlice.actions;
