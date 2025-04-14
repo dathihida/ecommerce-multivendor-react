@@ -6,6 +6,7 @@ export interface Address{
     address: string;
     locality:string;
     city: string;
+    zip:string;
     state:string;
 }
 
@@ -22,5 +23,5 @@ export interface User{
     fullName: string;
     mobile?: string;
     role: UserRole;
-    addresses?: Address[];
+    addersses?: Address[];
 }

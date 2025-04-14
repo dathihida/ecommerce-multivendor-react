@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useAppDispatch } from '../../../State/Store';
 import { createOrder } from '../../../State/customer/orderSlice';
+import { addAddress } from '../../../State/customer/addressSlice';
 
 const AddressFormSchema = yup.object().shape({
     name: yup.string().required('Name is required'),
@@ -25,15 +26,20 @@ const AddressForm = ({paymentGateway}:any) => {
             pinCode: '',
             locality: '',
             mobile: '',
-            state: ''
+            state: '',
+            zip: ''
         },
         validationSchema: AddressFormSchema,
         onSubmit:  values => {
             console.log(values)
-            dispatch(createOrder({
-                address:values, 
-                jwt:localStorage.getItem("jwt") || "", 
-                paymentGateway,
+            // dispatch(createOrder({
+            //     address:values, 
+            //     jwt:localStorage.getItem("jwt") || "", 
+            //     paymentGateway,
+            // }))
+            dispatch(addAddress({
+                address: values,
+                jwt: localStorage.getItem("jwt") || "",
             }))
         }
     })
@@ -80,12 +86,20 @@ const AddressForm = ({paymentGateway}:any) => {
                     />
                 </Grid2>
 
-                <Grid2 size={{xs:12}}>
+                <Grid2 size={{xs:6}}>
                     <TextField fullWidth label="locality" name='locality' 
                         value={formik.values.locality} 
                         onChange={formik.handleChange}
                         error={formik.touched.locality && Boolean(formik.errors.locality)}
                         helperText={formik.touched.locality && formik.errors.locality}
+                    />
+                </Grid2>
+                <Grid2 size={{xs:6}}>
+                    <TextField fullWidth label="zip" name='zip' 
+                        value={formik.values.zip} 
+                        onChange={formik.handleChange}
+                        error={formik.touched.zip && Boolean(formik.errors.zip)}
+                        helperText={formik.touched.zip && formik.errors.zip}
                     />
                 </Grid2>
 

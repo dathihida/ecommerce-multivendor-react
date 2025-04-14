@@ -1,25 +1,38 @@
-import { Radio } from '@mui/material';
-import React from 'react'
+import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import { Address } from '../../../types/UserTypes';
 
-const AddressCard = () => {
-    const handleChanges = (e:any) => {
-        console.log(e.target.value)
-    };
+const AddressCard = ({item, 
+                      selectedAddress, 
+                      setSelectedAddress} : 
+                      {
+                        item:Address, 
+                        selectedAddress: Address | null,
+                        setSelectedAddress: (address: Address) => void}) => {
   return (
-    <div className='p-5 border border-gray-200 rounded-md flex'>
-        <div>
-            <Radio checked={true} onChange={handleChanges} value="" name="radio-button"/>
-        </div>
-        <div className='space-y-3 pt-3'>
-            <h1>Dat</h1>
+    <div className='p-5 border border-gray-200 rounded-md flex'>  
+        <FormControlLabel 
+      key={item.id}
+      value={item.id}
+      control={
+        <Radio 
+          checked={selectedAddress?.id === item.id}
+          onChange={() => setSelectedAddress(item)}
+        />
+      }
+      label={<div className='flex flex-col items-center'>
+            <h1>{item.name}</h1>
             <p className='w-[320px]'>
-                Gia Ray, Xuan Thoi Son, Hoc Mon, Ho Chi Minh
+                <strong>Address: </strong>
+                {item.address}, {item.city}, {item.state}, {item.locality}
             </p>
             <p>
                 <strong>Mobile: </strong>
-                0368746003
+                {item.mobile}
             </p>
-        </div>
+        </div>}
+    />
+        
     </div>
   )
 }

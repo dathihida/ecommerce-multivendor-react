@@ -1,8 +1,12 @@
 import { Box, Button, FormControlLabel, Modal, Radio, RadioGroup } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddressCard from './AddressCard'
 import AddressForm from './AddressForm';
 import PricingCart from '../Cart/PricingCart';
+import { useAppDispatch, useAppSelector } from '../../../State/Store';
+import { fetchUserProfile } from '../../../State/AuthSlice';
+import { Address } from '../../../types/UserTypes';
+import { createOrder } from '../../../State/customer/orderSlice';
 
 const style = {
         position: 'absolute',
@@ -44,6 +48,18 @@ const Checkout = () => {
     const handlePaymentChange = (event:any) =>{
         setPaymentGateway(event.target.value)
     }
+    console.log("paymentGateway: ", paymentGateway)
+    const dispatch = useAppDispatch();
+    const {auth} = useAppSelector(store => store)
+    useEffect(()=>{
+        dispatch(fetchUserProfile({ jwt: localStorage.getItem("jwt") || "" }))
+    },[auth.jwt])
+
+    const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
+    const { id, ...rest } = selectedAddress || {} as Address;
+    console.log("selected address: ", selectedAddress)
+    console.log("user address: ", auth.user?.addersses)
+    console.log("user: ", auth.user)
 
   return (
     <>
@@ -61,7 +77,13 @@ const Checkout = () => {
                     <div className='text-xs font-medium space-y-5'>
                         <p>Saved Address</p>
                         <div className='space-y-5'>
-                            {[1,1,1].map((item) => <AddressCard/>)}
+                            {auth.user?.addersses?.map((item) => (
+                                <AddressCard 
+                                    item={item} 
+                                    selectedAddress = {selectedAddress}
+                                    setSelectedAddress={setSelectedAddress}
+                                    />
+                            ))}
                         </div>
                     </div>
                     <div className='py-4 px-5 rounded-md'>
@@ -96,9 +118,24 @@ const Checkout = () => {
                     <div className='border rounded-md'>
                         <PricingCart />
                         <div className='p-2'>
-                        <Button fullWidth
-                            variant='contained'
-                            sx={{py: "11px"}}>Checkout</Button>
+                            <Button
+                                fullWidth
+                                variant='contained'
+                                sx={{py: "11px"}}
+                                onClick={() => {
+                                    if (!selectedAddress) {
+                                        alert("Please select a delivery address");
+                                        return;
+                                    }
+                                        dispatch(createOrder({
+                                            address:{...rest, id},
+                                            jwt:localStorage.getItem("jwt") || "", 
+                                            paymentGateway,
+                                        }))
+                                    }}
+                                >
+                                Checkout
+                            </Button>
                         </div>
                     </div>
                 </div>
