@@ -28,6 +28,7 @@ import Wishlist from './customer/WishList/Wishlist';
 import { create } from 'domain';
 import { createHomeCategory } from './State/customer/customerSlice';
 import { homeCategories } from './data/HomeCategories';
+import GlobalSnackbar from './customer/pages/Home/Notifitional/SnackBar';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -53,6 +54,7 @@ function App() {
         
         <div>
           <Navbar/>
+          <GlobalSnackbar/>
           <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Auth/>}/>

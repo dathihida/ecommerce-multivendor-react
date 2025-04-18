@@ -31,12 +31,6 @@ const AddressForm = ({paymentGateway}:any) => {
         },
         validationSchema: AddressFormSchema,
         onSubmit:  values => {
-            console.log(values)
-            // dispatch(createOrder({
-            //     address:values, 
-            //     jwt:localStorage.getItem("jwt") || "", 
-            //     paymentGateway,
-            // }))
             dispatch(addAddress({
                 address: values,
                 jwt: localStorage.getItem("jwt") || "",

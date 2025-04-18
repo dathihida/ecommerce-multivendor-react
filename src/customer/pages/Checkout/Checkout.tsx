@@ -56,10 +56,6 @@ const Checkout = () => {
     },[auth.jwt])
 
     const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
-    const { id, ...rest } = selectedAddress || {} as Address;
-    console.log("selected address: ", selectedAddress)
-    console.log("user address: ", auth.user?.addersses)
-    console.log("user: ", auth.user)
 
   return (
     <>
@@ -128,7 +124,7 @@ const Checkout = () => {
                                         return;
                                     }
                                         dispatch(createOrder({
-                                            address:{...rest, id},
+                                            address: selectedAddress,
                                             jwt:localStorage.getItem("jwt") || "", 
                                             paymentGateway,
                                         }))

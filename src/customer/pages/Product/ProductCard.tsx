@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../State/Store'
 import { addItemToCart } from '../../../State/customer/cartSlice'; // Adjust the path if necessary
 import { addProductToWishlist } from '../../../State/customer/wishlistSlice';
+import { showSnackbar } from '../../../State/SnackBarSlice';
 
 const ProductCard = ({item}:{item:Product}) => {  
   const [currentImage, setCurrentImage] = useState(0);
@@ -28,6 +29,12 @@ const ProductCard = ({item}:{item:Product}) => {
                 size: item.sizes,
                 quantity: 1
               }
+          }))
+
+          dispatch(showSnackbar({
+            message: "Item added to cart",
+            severity: "success",
+            open: true
           }))
       }
 

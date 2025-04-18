@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom'
 import { fetchProductById } from '../../../State/customer/ProductSlice'
 import { addItemToCart } from '../../../State/customer/cartSlice'
 import { addProductToWishlist } from '../../../State/customer/wishlistSlice'
+import { showSnackbar } from '../../../State/SnackBarSlice'
 const ProductDetail = () => {
     const [quantity, setQuantity] = useState(1)
     const dispatch = useAppDispatch()
@@ -28,6 +29,12 @@ const ProductDetail = () => {
                     quantity: quantity
                   }
               }))
+
+            dispatch(showSnackbar({
+                message: "Item added to cart",
+                severity: "success",
+                open: true
+            }))
           }
     const handleAddToWishlist = () => {
         dispatch(addProductToWishlist({ productId: product.product?.id ?? 0 }))
