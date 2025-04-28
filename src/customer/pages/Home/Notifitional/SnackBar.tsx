@@ -21,7 +21,7 @@ const GlobalSnackbar = () => {
       autoHideDuration={3000}
       onClose={handleClose}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      sx={{ marginTop: '60px' }} // Adjust the margin to avoid overlap with the navbar
+      sx={{ marginTop: '60px' }}
     >
       <Alert onClose={handleClose} sx={{ width: '100%' }}>
         {message}

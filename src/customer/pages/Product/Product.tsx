@@ -26,56 +26,11 @@ const Product = () => {
     setPage(value);
   };
 
-//   useEffect(() =>{
-//     const [minPrice, maxPrice] = searchParam.get("price")?.split("-") || [];
-//     const color = searchParam.get("color");
-//     const discount =searchParam.get("discount")?Number(searchParam.get("discount")):undefined;
-//     const pageNumber = page-1;
-//     // const newFilter = {
-//     //     color: color || "",
-//     //     minPrice: minPrice?Number(minPrice):undefined,
-//     //     maxPrice: maxPrice?Number(maxPrice):undefined,
-//     //     discount: discount || "",
-//     //     pageNumber: pageNumber
-//     // }
-//     const newFilter = {
-//         color: color || "",
-//         minPrice: minPrice ? Number(minPrice) : undefined,
-//         maxPrice: maxPrice ? Number(maxPrice) : undefined,
-//         discount: discount || "",
-//         pageNumber: pageNumber,
-//         sort: sort || "",
-//         category: category || ""
-//     };
-//     dispatch(fetchAllProducts(newFilter))
-//   }, [category, searchParam, page, sort])
-
-// useEffect(() => {
-//     const [minPrice, maxPrice] = searchParam.get("price")?.split("-") || [];
-//     const color = searchParam.get("color");
-//     const discount = searchParam.get("discount") ? Number(searchParam.get("discount")) : undefined;
-//     const sortParam = sort || "";
-//     const categoryParam = category || "";
-//     const hasFilter = minPrice || maxPrice || color || discount || sortParam || categoryParam;
-  
-//     const newFilter = hasFilter ? {
-//       color: color || "",
-//       minPrice: minPrice ? Number(minPrice) : undefined,
-//       maxPrice: maxPrice ? Number(maxPrice) : undefined,
-//       discount: discount || "",
-//       pageNumber: page - 1,
-//       sort: sortParam,
-//       category: categoryParam
-//     } : null;
-  
-//     dispatch(fetchAllProducts(newFilter));
-//   }, [category, searchParam, page, sort]);
-  
-
 useEffect(() => {
     const [minPrice, maxPrice] = searchParam.get("price")?.split("-") || [];
     const color = searchParam.get("color");
     const discountPercent = searchParam.get("discountPercent") ? Number(searchParam.get("discountPercent")) : undefined;
+    const query = searchParam.get("query") || null;
     const pageNumber = page - 1;
   
     const newFilter: any = {
@@ -83,6 +38,7 @@ useEffect(() => {
       sort: sort || ""
     };
   
+    if (query) newFilter.query = query;
     if (color) newFilter.color = color;
     if (minPrice) newFilter.minPrice = Number(minPrice);
     if (maxPrice) newFilter.maxPrice = Number(maxPrice);
@@ -92,7 +48,7 @@ useEffect(() => {
     console.log("New Filter:", newFilter);
     dispatch(fetchAllProducts(newFilter));
   }, [category, searchParam, page, sort]);
-  
+
   return (
     <div className='-z-10 mt-10'>
         <div>

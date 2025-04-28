@@ -15,6 +15,7 @@ import { colors } from '../../../data/Filter/color'
 import { mainCategory } from '../../../data/category/mainCategory'
 import { useAppDispatch } from '../../../State/Store'
 import { createProduct } from '../../../State/seller/sellerProductSlice'
+import { showSnackbar } from '../../../State/SnackBarSlice'
 
 
 const categoryTwo: {[key:string]: any[]} = {
@@ -40,6 +41,7 @@ const AddProducts = () => {
   const dispatch = useAppDispatch()
   const formik = useFormik({
     initialValues:{
+      name:"",
       title: "", 
       description: "", 
       mrpPrice: "", 
@@ -53,10 +55,36 @@ const AddProducts = () => {
       category3: "", 
       sizes: ""
     },
-    onSubmit: values =>{
-      console.log(values);
-      dispatch(createProduct({request: values, jwt:localStorage.getItem("jwt")}))
-    }
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        const res = await dispatch(createProduct({ request: values, jwt: localStorage.getItem("jwt") }));
+    
+        if (createProduct.fulfilled.match(res)) {
+          // Nếu thêm thành công
+          resetForm();
+          dispatch(showSnackbar({
+            message: "Add product success",
+            severity: "success",
+            open: true
+          }));
+        } else {
+          // Nếu thêm thất bại
+          dispatch(showSnackbar({
+            message: "Add product failed",
+            severity: "error",
+            open: true
+          }));
+        }
+      } catch (error) {
+        // Nếu lỗi (network, server lỗi,...)
+        dispatch(showSnackbar({
+          message: "Something went wrong!",
+          severity: "error",
+          open: true
+        }));
+        console.error("Error:", error);
+      }
+    }        
   })
 
   const handleImageChange = async (event: any) => {
@@ -87,52 +115,6 @@ const AddProducts = () => {
     <div>
       <form onSubmit={formik.handleSubmit} className='space-y-4 p-4'>
         <Grid2 container spacing={2}>
-
-          {/* <Grid2 className="flex flex-wrap gap-5"size={{xs:12}} >
-            <input type="file" 
-              accept='image/*'
-              id='fileInput'
-              style={{display: "none"}}
-              onChange={handleImageChange}
-            />
-
-            <label className='relative' htmlFor="fileInput">
-              <span className='w-24 h-24 cursor-pointer flex items-center justify-center
-                p-3 border rounded-md border-gray-400'>
-                <AddPhotoAlternate className='text-gray-700'/>
-              </span>
-              {
-                uploadImage &&(
-                  <div className='absolute left-0 right-0 top-0 bottom-0 w-24 h-24 flex justify-between'>
-                    <CircularProgress/>
-                  </div>
-                )
-              }
-            </label>
-            <div className='flex flex-wrap gap-2'>
-              {formik.values.images.map((image, index)=>(
-                <div key={index} className='relative'>
-                  <img className='w-24 h-24 object-cover'
-                    key={index} src={image} alt={`ProductImage ${index+1}`} 
-                  />
-
-                  <IconButton 
-                    onClick={()=>handleRemoveImage(index)}
-                    className=''
-                    size='small'
-                    color="error"
-                    sx={{
-                      position:"absolute",
-                      top:0,
-                      right:0,
-                    }}>
-                      <Close sx={{fontSize:"1rem"}}/>
-                    </IconButton>
-                </div>
-              ))}
-            </div>
-          </Grid2> */}
-
           <Grid2 className="flex flex-wrap gap-5" size={{ xs: 12 }}>
             <input
               type="file"
@@ -194,6 +176,20 @@ const AddProducts = () => {
                 onChange={formik.handleChange}
                 error={formik.touched.quantity && Boolean(formik.errors.quantity)}
                 helperText={formik.touched.quantity && formik.errors.quantity}
+                value={formik.values.quantity}
+              />
+          </Grid2>
+
+          <Grid2 size={{xs:12}}>
+              <TextField
+                fullWidth
+                id="name"
+                name="name"
+                label="name"
+                onChange={formik.handleChange}
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
+                value={formik.values.name}
               />
           </Grid2>
 
@@ -206,6 +202,7 @@ const AddProducts = () => {
                 onChange={formik.handleChange}
                 error={formik.touched.title && Boolean(formik.errors.title)}
                 helperText={formik.touched.title && formik.errors.title}
+                value={formik.values.title}
               />
           </Grid2>
           <Grid2 size={{xs:12}}>
@@ -219,8 +216,12 @@ const AddProducts = () => {
                           onChange={formik.handleChange}
                           error={formik.touched.description && Boolean(formik.errors.description)}
                           helperText={formik.touched.description && formik.errors.description}
+                          value={formik.values.description}
                         />
           </Grid2>
+
+
+
           <Grid2 size={{xs:12, md:4, lg:4}}>
             <FormControl fullWidth error={formik.touched.color && Boolean(formik.errors.color)} required>
               <InputLabel id="color-label">Color</InputLabel>
@@ -247,8 +248,6 @@ const AddProducts = () => {
             </FormControl>
           </Grid2>
 
-          
-
           <Grid2 size={{xs:12, md:4, lg:4}}>
               <TextField
                 fullWidth
@@ -258,6 +257,7 @@ const AddProducts = () => {
                 onChange={formik.handleChange}
                 error={formik.touched.mrpPrice && Boolean(formik.errors.mrpPrice)}
                 helperText={formik.touched.mrpPrice && formik.errors.mrpPrice}
+                value={formik.values.mrpPrice}
               />
           </Grid2>
 
@@ -270,6 +270,7 @@ const AddProducts = () => {
                 onChange={formik.handleChange}
                 error={formik.touched.sellingPrice && Boolean(formik.errors.sellingPrice)}
                 helperText={formik.touched.sellingPrice && formik.errors.sellingPrice}
+                value={formik.values.sellingPrice}
               />
           </Grid2>
 
@@ -326,7 +327,7 @@ const AddProducts = () => {
               fullWidth
               error={formik.touched.category && Boolean(formik.errors.category)} required>
               
-              <InputLabel id="category-label">Category2</InputLabel>
+              <InputLabel id="category2-label">Category2</InputLabel>
               <Select
                 labelId='category2-label'
                 id="category2" 
@@ -355,8 +356,8 @@ const AddProducts = () => {
               
               <InputLabel id="category-label">Category3</InputLabel>
               <Select
-                labelId='category-label'
-                id="category" 
+                labelId='category3-label'
+                id="category3" 
                 name='category3' 
                 value={formik.values.category3} 
                 onChange={formik.handleChange} 
@@ -396,20 +397,6 @@ const AddProducts = () => {
           </Grid2>
         </Grid2>
       </form>    
-
-
-    {/* snackbar */}
-    {/* <Snackbar
-      anchorOrigin={{vertical: "top", horizontal: "right"}}
-      open={snackbarOpen} autoHideDuration={6000}
-      onClose={handleCloseSnackbar}
-    >
-      <Alert
-        onClose={handleCloseSnackbar}
-        severity={sellerProd}
-      ></Alert>
-
-    </Snackbar> */}
     </div>
   )
 }

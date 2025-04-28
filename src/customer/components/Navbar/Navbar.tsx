@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, Button, IconButton, useMediaQuery } from '@mui/material'
+import { Avatar, Badge, Box, Button, IconButton, Modal, useMediaQuery } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -11,12 +11,30 @@ import { useAppDispatch, useAppSelector } from '../../../State/Store';
 import { useDispatch } from 'react-redux';
 import { getWishlistByUserId } from '../../../State/customer/wishlistSlice';
 import { fetchUserCart } from '../../../State/customer/cartSlice';
+import SearchBar from './SearchBar';
 
-const Navbar = () => {
+  const Navbar = () => {
   const themeIs = useTheme();
   const isLarge = useMediaQuery(themeIs.breakpoints.up("lg"));
   const [selectCategory, setSelectCategory] = useState('men');
   const [showCategorySheet, setShowCategorySheet] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [keyword, setKeyword] = useState('');
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      console.log('Từ khóa tìm kiếm:', keyword);
+      navigate(`/products?query=${keyword}`)
+      handleClose();
+    }
+  };
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
 
@@ -55,9 +73,32 @@ const Navbar = () => {
             </div>
               
               <div className='flex items-center gap-1 lg:gap-6'>
-                <IconButton>
+                <IconButton onClick={handleOpen} className='lg:hidden'>
                   <SearchIcon />
-                </IconButton> 
+                </IconButton>
+
+                <Modal open={open} onClose={handleClose}>
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '20%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      bgcolor: 'background.paper',
+                      borderRadius: 2,
+                      boxShadow: 24,
+                      p: 4,
+                      minWidth: 300,
+                    }}
+                  >
+                    <SearchBar
+                      value={keyword}
+                      onChange={handleChange}
+                      onKeyDown={handleKeyDown}
+                    />
+                  </Box>
+                </Modal>
+
                 {
                   auth.user ? 
                   <Button onClick={() =>navigate("/account/orders")} className='flex items-center gap-2'>
